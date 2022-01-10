@@ -71,10 +71,10 @@ target_include_directories(algorithmsPCH  INTERFACE
 
 
 add_library(algoFunLib
-
-        src/algorithms_Test.cpp
-
-        src/AlgoFun/AlgoFindMissingElem.hpp src/AlgoFun/AlgoFun.cpp src/AlgoFun/AlgoFun.hpp)
+        src/AlgoFun/AlgoFindMissingElem.hpp
+        src/AlgoFun/AlgoFun.cpp
+        src/AlgoFun/AlgoFun.hpp
+)
 
 target_include_directories(algoFunLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 target_link_libraries(algoFunLib PRIVATE algorithmsPCH)

@@ -3,6 +3,7 @@
 //
 
 #include "algorithmsPCH.hpp"
+#include "AlgoFindMissingElem.hpp"
 
 
 
