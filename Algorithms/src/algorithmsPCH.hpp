@@ -1,0 +1,29 @@
+#ifndef METAFUN_METAFUNCTIONSPCH_HPP
+#define METAFUN_METAFUNCTIONSPCH_HPP
+
+#include <cstdio>
+#include <iostream>
+#include <cassert>
+#include <bit>
+#include <cstddef>
+#include <cstdint>
+#include <utility>
+#include <type_traits>
+#include <algorithm>
+#include <optional>
+#include <compare>
+#include <span>
+#include <variant>
+#include <any>
+#include <array>
+#include <vector>
+#include <ranges>
+#include <algorithm>
+#include <numeric>
+#include <memory>
+#include <string_view>
+#include <coroutine>
+#include <deque>
+#include <list>
+
+#endif //METAFUN_METAFUNCTIONSPCH_HPP
