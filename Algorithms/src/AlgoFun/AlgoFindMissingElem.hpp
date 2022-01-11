@@ -9,33 +9,42 @@
 
 namespace algofun
 {
-    // write tests
-    // changed unsigned* to Iterator, make the function generic and non-recursive; iterative
-    // use concepts for the iterator type; Forward iterator and use STL iterator helper function
-    // instead of pointer arithmetic
 
-     auto find_missing_element(unsigned* first, unsigned* last, unsigned value=1)
+    // use STL iterator helper function; advance, next, distance...
+    // instead of pointer arithmetics
+
+    ///@ A:find_missing_element()
+    ///@ linear time; n+n/2 +n/4..
+    ///@ in place
+
+    template<std::forward_iterator It, typename T=std::iter_value_t<It>>
+     auto find_missing_element(It first, It last, T value=T{})
     {
-        if(last==first)
-        {
-            return value;
-        }
-        unsigned half =(*last - *first+1) / 2 ;
-        unsigned m = half + value;
-        auto p = std::partition(first, last, [&](auto elem) { return elem < m;} );
-        if( p == first + half)
-        {
-            return find_missing_element(p, last, m);
-        }
-        else
-        {
-            return find_missing_element(first, p , value);
-        }
+      // added this instead of passing 1 as default to the value it works for numerical values
+      // need to test for other types; if T{} is given then the search does not work
+      // need to find a better way without this ???
+      ++value;
+      while(last!=first)
+      {
+          T half =(last - first+1) / 2 ;
+          T m = half + value;
+          auto p = std::partition(first, last, [&](auto elem) { return elem < m;} );
+          if( p == first + half)
+          {
+             first = p;
+             value = m;
+          }
+          else
+          {
+              last =p;
+          }
+      }
+       return value;
     }
 
 
 
 
-}
+} // end of namespace
 
 #endif //ALGOFUN_ALGOFINDMISSINGELEM_HPP

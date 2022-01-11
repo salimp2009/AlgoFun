@@ -13,17 +13,18 @@ namespace algofun
     void AlgoFun_Test()
     {
         std::puts("--AlgoFun_Test--");
-        std::vector<unsigned> vecOdd = {1,2,3,5,6,7,8};
+        std::vector<unsigned> vecOdd = {3,1,2,5,7,8,6};
         std::vector<unsigned> vecEven = {1,2,3,4,6,7};
-        std::vector vecTwoGaps = {1,2,3,5,6,7,9,10,1,13};
+        std::vector<unsigned >vecTwoGaps = {3,2,1,5,7,9,6,10,1,13};
         std::printf("vecOdd end : %d \n", *(vecOdd.data()+vecOdd.size()-1));
 
-        auto valueOdd = find_missing_element(&vecOdd[0], &(vecOdd[vecOdd.size()-1]));
-        auto valueEven=find_missing_element(vecEven.data(), (vecEven.data()+vecEven.size()-1));
-        printf("vecOdd Missing Elem (expected: [4]: %d \n", valueOdd);
-        printf("vecEven Missing Elem (expected: [5]: %d \n", valueEven);
+        auto valueOdd = find_missing_element(vecOdd.begin(), vecOdd.end());
+        auto valueEven=find_missing_element(vecEven.begin(), vecEven.end());
+        printf("vecOdd Missing Elem (expected: [4]): %d \n", valueOdd);
+        printf("vecEven Missing Elem (expected: [5]): %d \n", valueEven);
 
-
+        auto valueTwoGaps = find_missing_element(vecTwoGaps.data(), (vecTwoGaps.data()+vecTwoGaps.size() ));
+        printf("vecTwoGaps Missing Elem (expected: [4 or 8]): %d \n", valueTwoGaps);
     }
 
 
