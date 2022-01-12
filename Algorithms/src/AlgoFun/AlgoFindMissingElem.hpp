@@ -16,7 +16,8 @@ namespace algofun
     ///@ A:find_missing_element()
     ///@ linear time; n+n/2 +n/4..
     ///@ in place
-
+    ///@ although forward_iterator is used it also supports random access, bi-directional iterators as well
+    ///@ e.g: vectors, arrays, lists, forward iterators will work
     template<std::forward_iterator It, typename T=std::iter_value_t<It>>
      auto find_missing_element(It first, It last, T value=T{})
     {
@@ -24,12 +25,13 @@ namespace algofun
       // need to test for other types; if T{} is given then the search does not work
       // need to find a better way without this ???
       ++value;
+
       while(last!=first)
       {
-          T half =(last - first+1) / 2 ;
+          T half =(std::distance(first,last)+1 )/ 2 ;
           T m = half + value;
           auto p = std::partition(first, last, [&](auto elem) { return elem < m;} );
-          if( p == first + half)
+          if( p == std::next(first, half))
           {
              first = p;
              value = m;
