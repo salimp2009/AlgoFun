@@ -47,6 +47,15 @@ else()
     add_definitions(-Wno-unused-parameter)
     add_definitions(-Wno-unused-value)
     add_definitions(-Wno-cpp)
+    add_definitions(-Wconversion)
+
+    if(IS_GNU)
+    add_definitions(-Wmisleading-indentation)
+    add_definitions(-Wduplicated-cond)
+    add_definitions(-Wduplicated-branches)
+    add_definitions(-Wlogical-op)  # warn about logical operations being used where bitwise were probably wanted
+    add_definitions(-Wuseless-cast) # warn if you perform a cast to the same type
+    endif()
 
     if(IS_CLANG)
         add_definitions(-Wno-unused-private-field)
