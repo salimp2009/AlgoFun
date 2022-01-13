@@ -48,6 +48,32 @@ namespace algofun
         std::puts("--------------------");
     }
 
+    void minabsentVersion2_Tests()
+    {
+
+        std::puts("--minabsentVersion2_Tests--");
+        using namespace std::chrono_literals;
+
+        std::vector<std::chrono::seconds> vec1={0s, 1s, 3s, 2s, 5s};
+        auto result1= min_absent2(vec1.begin(), vec1.end());
+        assert(result1==4s);
+        std::printf("result1: %lld s \n", result1.count());
+
+        using T = std::chrono::time_point<std::chrono::system_clock, std::chrono::seconds>;
+        std::vector vec2 ={T{0s}, T{1s}, T{3s}, T{2s}, T{5s}};
+        auto result2 = min_absent2(vec2.begin(),vec2.end());
+        assert(result2==T{4s});
+        std::printf("result2: %lld s \n", result2.time_since_epoch().count());
+
+
+        // same as above but a new type in C++20
+        using T1= std::chrono::sys_time<std::chrono::seconds>;
+        std::vector vec3 ={T1{0s}, T1{1s}, T1{3s}, T1{2s}, T1{5s}};
+        assert(min_absent2(vec3.begin(),vec3.end())==T1{4s});
+        std::puts("--Tests Passed--");
+        std::puts("--------------------");
+    }
+
 
 
 

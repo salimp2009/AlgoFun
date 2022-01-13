@@ -12,6 +12,7 @@ namespace algofun
 {
     void AlgoFun_Test();
     void minabsent_Tests();
+    void minabsentVersion2_Tests();
 
 
 
