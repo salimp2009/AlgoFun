@@ -18,18 +18,40 @@ namespace algofun
         std::vector<unsigned >vecTwoGaps = {3,2,1,5,7,9,6,10,1,13};
         std::printf("vecOdd end : %d \n", *(vecOdd.data()+vecOdd.size()-1));
 
-        auto valueOdd = find_missing_element(vecOdd.begin(), vecOdd.end());
-        auto valueEven=find_missing_element(vecEven.begin(), vecEven.end());
+        auto valueOdd = min_absent(vecOdd.begin(), vecOdd.end());
+        auto valueEven=min_absent(vecEven.begin(), vecEven.end());
         printf("vecOdd Missing Elem (expected: [4]): %d \n", valueOdd);
         printf("vecEven Missing Elem (expected: [5]): %d \n", valueEven);
 
-        auto valueTwoGaps = find_missing_element(vecTwoGaps.data(), (vecTwoGaps.data()+vecTwoGaps.size()),1u);
+        auto valueTwoGaps = min_absent(vecTwoGaps.data(), (vecTwoGaps.data()+vecTwoGaps.size()),1u);
         printf("vecTwoGaps Missing Elem (expected: [4 or 8]): %d \n", valueTwoGaps);
+    }
+
+    void minabsent_Tests()
+    {
+
+        std::puts("--minabsent_Tests--");
+        using namespace std::chrono_literals;
+
+        std::vector<std::chrono::seconds> vec1={0s, 1s, 3s, 2s, 5s};
+        assert(min_absent(vec1.begin(), vec1.end())==4s);
+        using T = std::chrono::time_point<std::chrono::system_clock, std::chrono::seconds>;
+
+        std::vector vec2 ={T{0s}, T{1s}, T{3s}, T{2s}, T{5s}};
+        assert(min_absent(vec2.begin(),vec2.end())==T{4s});
+
+        // same as above but a new type in C++20
+        using T1= std::chrono::sys_time<std::chrono::seconds>;
+        std::vector vec3 ={T1{0s}, T1{1s}, T1{3s}, T1{2s}, T1{5s}};
+        assert(min_absent(vec3.begin(),vec3.end())==T1{4s});
+        std::puts("--Tests Passes--");
+        std::puts("--------------------");
     }
 
 
 
 
-}
+
+}// end of namespace
 
 

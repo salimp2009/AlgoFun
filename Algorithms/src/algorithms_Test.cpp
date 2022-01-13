@@ -4,5 +4,6 @@
 int main()
 {
     algofun::AlgoFun_Test();
+    algofun::minabsent_Tests();
 
 }

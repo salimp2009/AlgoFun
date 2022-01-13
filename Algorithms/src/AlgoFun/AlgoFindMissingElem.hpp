@@ -19,22 +19,20 @@ namespace algofun
      * (Pre) [fist,las) does not contain all possible value (there are missing elems)
      * (Pre) last is reachable from first; using iterator helper functions
      * (Pre?) [first, last) no duplicate values of T; not sure if this is needed!!
-     * (Pre?) value should not overflow if T is signed
+     * (Pre?) value should Snot overflow if T is signed
      */
 
     /// @param  first   start iterator of a range/container
     /// @param  last    end of the iterator (it is one past the last value)
     /// @param  value   the start value of range; if not passed then default zero will be used
     template<std::forward_iterator It, typename T=std::iter_value_t<It>>
-     constexpr auto find_missing_element(It first, It last, T value=T{})
+    constexpr auto min_absent(It first, It last, T value=T{})
     {
-      // added this instead of passing 1 as default to the value it works for numerical values
-      // need to test for other types; if T{} is given then the search does not work
-      // need to find a better way without this ???
+      using diff_t = decltype(value-value);
       while(last!=first)
       {
-          const auto half =static_cast<T>(std::distance(first,last)+1)/ 2 ;
-          const T m = half + value;
+          const auto half =(std::distance(first,last)+1)/ 2 ;
+          const T m = static_cast<diff_t>(half) + value;
           const auto p = std::partition(first, last, [&](auto elem) { return elem < m;} );
           if ( p == std::next(first, half))
           {
