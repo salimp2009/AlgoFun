@@ -84,6 +84,7 @@ namespace algofun
         std::vector<int> v_symDifference;
         std::ranges::set_symmetric_difference(v1.begin(), v1.end(),  v2.begin(), v2.end(), std::back_inserter(v_symDifference));
 
+        //
         std::printf("the diff between v1 and v2 : [expected : 1,2,3,4,6,8,9,10]; \nresult: ");
         for(auto&& elem : v_symDifference)
         {
