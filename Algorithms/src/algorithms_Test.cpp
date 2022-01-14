@@ -7,5 +7,5 @@ int main()
     algofun::minabsent_Tests();
     algofun::minabsentVersion2_Tests();
     algofun::setSymmetric_difference_Test();
-
+    algofun::slideAlgorithm_Test();
 }

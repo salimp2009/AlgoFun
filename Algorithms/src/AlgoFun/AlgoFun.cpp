@@ -4,6 +4,7 @@
 
 #include "algorithmsPCH.hpp"
 #include "AlgoFindMissingElem.hpp"
+#include "SlideAlgorithm.hpp"
 
 
 
@@ -92,9 +93,16 @@ namespace algofun
         }
         std::puts("\n[Tests Passed]");
         std::puts("--------------------");
-
     }
 
+    void slideAlgorithm_Test()
+    {
+        std::puts("--slideAlgorithm_Test--");
+
+
+        std::puts("\n[Tests Passed]");
+        std::puts("--------------------");
+    }
 
 
 

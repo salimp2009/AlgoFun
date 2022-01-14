@@ -14,6 +14,7 @@ namespace algofun
     void minabsent_Tests();
     void minabsentVersion2_Tests();
     void setSymmetric_difference_Test();
+    void slideAlgorithm_Test();
 
 
 
