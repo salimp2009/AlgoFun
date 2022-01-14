@@ -29,7 +29,6 @@ namespace algofun
 
     void minabsent_Tests()
     {
-
         std::puts("--minabsent_Tests--");
         using namespace std::chrono_literals;
 
@@ -44,13 +43,12 @@ namespace algofun
         using T1= std::chrono::sys_time<std::chrono::seconds>;
         std::vector vec3 ={T1{0s}, T1{1s}, T1{3s}, T1{2s}, T1{5s}};
         assert(min_absent(vec3.begin(),vec3.end())==T1{4s});
-        std::puts("--Tests Passes--");
+        std::puts("--Tests Passed--");
         std::puts("--------------------");
     }
 
     void minabsentVersion2_Tests()
     {
-
         std::puts("--minabsentVersion2_Tests--");
         using namespace std::chrono_literals;
 
@@ -72,6 +70,28 @@ namespace algofun
         assert(min_absent2(vec3.begin(),vec3.end())==T1{4s});
         std::puts("--Tests Passed--");
         std::puts("--------------------");
+    }
+
+    void setSymmetric_difference_Test()
+    {
+        std::puts("--set_symmetric_difference--");
+        // Computes symmetric difference of two sorted ranges: the elements that are found in either of the ranges,
+        // but not in both of them are copied to the range beginning at d_first. The resulting range is also sorted.
+        std::vector v1 = {1,2,3,4,5,6,7,8     };
+        std::vector v2 = {        5,  7,  9,10};
+        std::ranges::sort(v1);
+        std::ranges::sort(v2);
+        std::vector<int> v_symDifference;
+        std::ranges::set_symmetric_difference(v1.begin(), v1.end(),  v2.begin(), v2.end(), std::back_inserter(v_symDifference));
+
+        std::printf("the diff between v1 and v2 : [expected : 1,2,3,4,6,8,9,10]; \nresult: ");
+        for(auto&& elem : v_symDifference)
+        {
+            std::printf(" %i ", elem );
+        }
+        std::puts("\n[Tests Passed]");
+        std::puts("--------------------");
+
     }
 
 
