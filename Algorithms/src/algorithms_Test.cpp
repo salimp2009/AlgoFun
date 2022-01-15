@@ -8,4 +8,5 @@ int main()
     algofun::minabsentVersion2_Tests();
     algofun::setSymmetric_difference_Test();
     algofun::slideAlgorithm_Test();
+    algofun::slideWithRanges_Test();
 }
