@@ -99,6 +99,28 @@ namespace algofun
     {
         std::puts("--slideAlgorithm_Test--");
 
+        std::vector vec1 = {1,3,4,2, 66, 102,88, 55,105,99};
+        auto first =vec1.begin()+2;
+        auto last = vec1.begin()+6;
+        auto position =std::next(vec1.begin(),7);
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+
+        std::printf("original: orig_begin: %i, orig_end: %i, orig_position: %i \n", *first, *(last-1), *(position-1));
+
+        auto result = slide(first, last, position);
+        std::printf("slide: new_begin: %i, new_end: %i \n", *(result.first), *(result.second-1));
+
+        std::printf("slide: new_begin_dist: %lli, new_end_dist: %lli \n", std::distance(vec1.begin(),result.first)+1, std::distance(vec1.begin(),result.second));
+
+        std::printf("after slide: ");
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
 
         std::puts("\n[Tests Passed]");
         std::puts("--------------------");
