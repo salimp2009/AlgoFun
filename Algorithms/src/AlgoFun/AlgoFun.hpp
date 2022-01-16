@@ -16,6 +16,7 @@ namespace algofun
     void setSymmetric_difference_Test();
     void slideAlgorithm_Test();
     void slideWithRanges_Test();
+    void slideRight_Test();
 
 
 

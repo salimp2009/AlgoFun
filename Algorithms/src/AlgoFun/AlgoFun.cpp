@@ -8,6 +8,7 @@
 
 
 
+
 namespace algofun
 {
 
@@ -101,8 +102,8 @@ namespace algofun
 
         std::vector vec1 = {1,3,4,2, 66, 102,88, 55,105,99};
         auto first =vec1.begin()+2;
-        auto last = vec1.begin()+6;
-        auto position =std::next(vec1.begin(),7);
+        auto last = vec1.begin()+6; // this 1 past the last vaule
+        auto position =std::next(vec1.begin(),8);
         for(auto elem :vec1)
         {
             std::printf("%i ", elem);
@@ -124,6 +125,69 @@ namespace algofun
 
         std::puts("\n[Tests Passed]");
         std::puts("--------------------");
+    }
+
+    void slideWithRanges_Test()
+    {
+        std::puts("--slideWithRanges_Test--");
+        std::vector vec1 = {1,3,4,2, 66, 102,88, 55,105,99};
+        std::printf("before slide: ");
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
+
+        std::puts("");
+
+        auto first =std::ranges::next(vec1.begin(), 2);
+        auto last = std::ranges::next(vec1.begin(), 6);
+        auto position =std::ranges::next(vec1.begin(),8);
+
+        // FIXME: red squiggles might be false error; check it in compiler explorer
+        std::ranges::subrange slideRange{first, last};
+        auto slideResult = slide(slideRange, position);
+        std::printf("after slide: ");
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+
+        std::printf("slide: new_begin: %i, new_end: %i \n", *slideResult.begin(), *(slideResult.end()-1));
+
+        std::span slideSpan{vec1.begin()+2, vec1.begin()+6 };
+
+        // FIXME: red squiggles might be false error; check it in compiler explorer
+        slide(slideRange, position);
+        std::printf("after 2nd slide: ");
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+    }
+
+    void slideRight_Test()
+    {
+        std::puts("--slideRight_Test--");
+
+        std::vector vec1 = {1,3,4,2, 66, 102,88, 55,105,99};
+        std::printf("before slide: ");
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+
+        slide_right(vec1.begin()+2, vec1.begin()+6, 3u);
+        std::printf("after slide: ");
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
+
+        std::puts("");
+
     }
 
 

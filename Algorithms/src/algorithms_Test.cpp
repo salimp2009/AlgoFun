@@ -9,4 +9,5 @@ int main()
     algofun::setSymmetric_difference_Test();
     algofun::slideAlgorithm_Test();
     algofun::slideWithRanges_Test();
+    algofun::slideRight_Test();
 }
