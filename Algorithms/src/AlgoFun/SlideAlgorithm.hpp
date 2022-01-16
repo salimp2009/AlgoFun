@@ -25,7 +25,7 @@ namespace algofun
     }
 
     template<std::forward_iterator It>
-    constexpr std::pair<It,It> slide(const It first, const It last, const It position)
+    constexpr std::pair<It,It> slide(It first, It last, It position)
     {
         if (position < first)   return  { position, std::rotate(position, first, last) };
         if (last < position)    return  { std::rotate(first, last, position), position };
@@ -37,6 +37,13 @@ namespace algofun
     {
             const auto position =std::next(last, number);
             return  { std::rotate(first, last, position), position };
+    }
+
+    template<std::bidirectional_iterator It>
+    constexpr std::pair<It,It> slide_left(It first, It last,std::unsigned_integral auto number)
+    {
+        const auto position = std::prev(first, number);
+        return  { position, std::rotate(position, first, last) };
     }
 
 

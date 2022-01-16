@@ -1,4 +1,3 @@
-#include "algorithmsPCH.hpp"
 #include "AlgoFun/AlgoFun.hpp"
 
 int main()
@@ -10,4 +9,5 @@ int main()
     algofun::slideAlgorithm_Test();
     algofun::slideWithRanges_Test();
     algofun::slideRight_Test();
+    algofun::slideLeft_Test();
 }

@@ -187,12 +187,54 @@ namespace algofun
         }
 
         std::puts("");
+    }
+
+    void slideLeft_Test()
+    {
+        std::puts("--slideLeft_Test--");
+        std::vector vec1 = {1,3,4,2, 66, 102,88, 55,105,99};
+        std::printf("before slide: ");
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+
+        slide_left(vec1.begin()+4, vec1.begin()+8, 2u);
+        std::printf("after slide left ");
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+
+        std::list list1 = {1,3,4,2, 66, 102,88, 55,105,99};
+        std::printf("list 1; before slide: ");
+        for(auto elem :list1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+
+        auto first = std::next(list1.begin(), 4);
+        auto last = std::next(list1.begin(), 8);
+
+        // supports at least std::bidirectional_iterator; does not work for forward list
+        // use regular slide with position to slide
+        slide_left(first, last, 2u);
+        std::printf("list 1; after slide: ");
+        for(auto elem :list1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
 
     }
 
 
 
 
-}// end of namespace
+
+    }// end of namespace
 
 
