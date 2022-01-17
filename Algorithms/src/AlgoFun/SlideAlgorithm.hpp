@@ -10,8 +10,7 @@
 
 namespace algofun
 {
-    // FIXME: experimental; cant decide if the R should cover the whole range first , middle and position or
-    // FIXME: just the selected part not including position
+    // FIXME: add another overload to cover the whole range first, selection as first/last and  position
     template<std::ranges::forward_range R>
     requires std::permutable<std::ranges::iterator_t<R>>
     constexpr std::ranges::subrange<std::ranges::iterator_t<R>> slide(R&& range,  std::ranges::iterator_t<R> position)

@@ -5,8 +5,7 @@
 #include "algorithmsPCH.hpp"
 #include "AlgoFindMissingElem.hpp"
 #include "SlideAlgorithm.hpp"
-
-
+#include "GatherAlgorithm.hpp"
 
 
 namespace algofun
@@ -228,7 +227,6 @@ namespace algofun
             std::printf("%i ", elem);
         }
         std::puts("");
-
     }
 
 
