@@ -10,16 +10,16 @@
 namespace  algofun
 {
 
-template<std::forward_iterator It, std::indirect_unary_predicate<It> PredT>
+template<std::bidirectional_iterator It, std::indirect_unary_predicate<It> PredT>
 constexpr std::pair<It, It> gather(It first, It last, It position, PredT pred)
 {
-    return { std::stable_partition(first, position, not pred), std::stable_partition(position, last, pred)};
+    const auto notPred = [&]<typename... T>(T&&... elem)
+    {
+        auto result = pred(std::forward<T>(elem)...);
+        return ! result;
+    };
+    return { std::stable_partition(first, position, (notPred)), std::stable_partition(position, last, pred)};
 }
-
-
-
-
-
 
 
 

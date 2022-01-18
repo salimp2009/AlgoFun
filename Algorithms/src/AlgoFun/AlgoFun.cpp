@@ -229,6 +229,31 @@ namespace algofun
         std::puts("");
     }
 
+    void gather_Test()
+    {
+        std::puts("--gather_Test--");
+        std::vector vec1 = {1, 3, 4, 2, 5, 102, 88, 55, 104, 98};
+        std::printf("before gather: ");
+        for (auto elem: vec1) {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+
+        auto result1 = gather(vec1.begin(), vec1.end(), vec1.begin()+5, [](auto elem) {return elem % 2 !=0;});
+
+        std::printf("vec1; after gather: ");
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+        const auto gatherBegin =  std::ranges::distance(vec1.begin(), result1.first);
+        const auto gatherEnd =  std::ranges::distance(vec1.begin(), result1.second);
+
+        std::printf("gather pos begin: %lli, gather pos end: %lli \n", gatherBegin, gatherEnd);
+
+    }
+
 
 
 

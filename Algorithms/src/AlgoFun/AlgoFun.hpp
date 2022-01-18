@@ -18,6 +18,7 @@ namespace algofun
     void slideWithRanges_Test();
     void slideRight_Test();
     void slideLeft_Test();
+    void gather_Test();
 
 
 
