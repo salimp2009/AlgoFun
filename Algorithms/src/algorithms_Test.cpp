@@ -11,4 +11,5 @@ int main()
     algofun::slideRight_Test();
     algofun::slideLeft_Test();
     algofun::gather_Test();
+    algofun::gatherRange_Test();
 }

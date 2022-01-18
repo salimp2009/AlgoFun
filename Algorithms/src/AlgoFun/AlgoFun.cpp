@@ -251,8 +251,39 @@ namespace algofun
         const auto gatherEnd =  std::ranges::distance(vec1.begin(), result1.second);
 
         std::printf("gather pos begin: %lli, gather pos end: %lli \n", gatherBegin, gatherEnd);
+        std::puts("");
 
     }
+
+    void gatherRange_Test()
+    {
+        std::puts("--gatherRange_Test--");
+        std::vector vec1 = {1, 3, 4, 2, 5, 102, 88, 55, 104, 98};
+        std::printf("before gather Range: ");
+        for (auto elem: vec1) {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+       // std::ranges::subrange gatherRange{vec1.begin(), vec1.end()};
+        auto position =std::ranges::next(vec1.begin(),4);
+
+        auto result2 = gather(vec1, position, [](auto elem) {return elem % 2 !=0;} );
+
+        std::printf("vec1; after gatherRange: ");
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+
+        const auto gatherBegin =  std::ranges::distance(vec1.begin(), result2.begin());
+        const auto gatherEnd =  std::ranges::distance(vec1.begin(), result2.end());
+
+        std::printf("gather pos begin: %lli, gather pos end: %lli \n", gatherBegin, gatherEnd);
+        std::puts("");
+
+    }
+
 
 
 
