@@ -7,6 +7,7 @@
 #include "AlgoFindMissingElem.hpp"
 #include "SlideAlgorithm.hpp"
 #include "GatherAlgorithm.hpp"
+#include "StablePartitionPosition.hpp"
 
 
 namespace algofun
@@ -294,17 +295,17 @@ namespace algofun
 
         std::vector<Person> vec2 = {{"Sean", 1}, {"Salim",9}, {"Didem", 52}, {"Ben",2 }, {"Kim", 8}};
         std::printf("before gather Range: ");
-        for (auto elem: vec2) {
+        for (const auto& elem: vec2) {
             std::printf("[%s, ID: %i] ", elem.name.c_str(), elem.confID);
         }
         std::puts("\n---------------------------------------------");
 
-        auto confPosition = std::next(vec2.begin(), 2);
+        auto conferencePos = std::next(vec2.begin(), 2);
         auto confPriority = [](auto elem) { return elem <3;};
-        auto resultConf = gather(vec2, confPosition, confPriority, &Person::confID);
+        auto resultConf = gather(vec2, conferencePos, confPriority, &Person::confID);
 
         std::printf("after gather Range: ");
-        for (auto elem: vec2) {
+        for (const auto& elem: vec2) {
             std::printf("[%s, ID: %i] ", elem.name.c_str(), elem.confID);
         }
         std::puts("\n---------------------------------------------");
@@ -312,6 +313,30 @@ namespace algofun
         // FIXME: use fmt library !!!
         std::printf("gather pos begin: %s, gather pos end: %s \n", (resultConf.begin())->name.c_str(), (resultConf.end()-1)->name.c_str());
         std::puts("");
+
+    }
+
+    void stablePartitionPosition()
+    {
+        std::puts("--stablePartion_PositionSelect--");
+        std::vector vec1 =           {1, 3, 4, 2, 5, 102, 88, 55, 104, 98};
+        std::vector positionSelect = {0, 1, 0, 1, 0, 0,    1, 0, 0, 0};
+        std::puts("before stablePartitionPosition: ");
+        for (auto elem: vec1) {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+
+        [[maybe_unused]] auto p = stablePartitionPosition(std::begin(vec1), std::end(vec1), [&](auto It){
+            return *(std::next(std::begin(positionSelect), std::distance(vec1.begin(), It)));
+        });
+
+        std::puts("after stablePartitionPosition: [expected: no change] :");
+        for (auto elem: vec1) {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+
 
     }
 
