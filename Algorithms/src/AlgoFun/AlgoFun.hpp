@@ -22,6 +22,16 @@ namespace algofun
     void gatherRange_Test();
 
 
+        struct Person
+        {
+            std::string name{};
+            int  confID{};
+
+        };
+
+
+
+
 
 
 

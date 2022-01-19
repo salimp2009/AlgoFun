@@ -3,6 +3,7 @@
 //
 
 #include "algorithmsPCH.hpp"
+#include "AlgoFun.hpp"
 #include "AlgoFindMissingElem.hpp"
 #include "SlideAlgorithm.hpp"
 #include "GatherAlgorithm.hpp"
@@ -253,6 +254,15 @@ namespace algofun
         std::printf("gather pos begin: %lli, gather pos end: %lli \n", gatherBegin, gatherEnd);
         std::puts("");
 
+        // Test if the position == vec1.begin()
+        auto result2 = gather(vec1.begin(), vec1.end(), vec1.begin(), [](auto elem) {return elem % 2 !=0;});
+        std::printf("vec1; after gather at top: ");
+        for(auto elem :vec1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+        std::printf("gather top; begin: %i, end: %i \n", *result2.first, *(result2.second-1));
     }
 
     void gatherRange_Test()
@@ -280,6 +290,27 @@ namespace algofun
         const auto gatherEnd =  std::ranges::distance(vec1.begin(), result2.end());
 
         std::printf("gather pos begin: %lli, gather pos end: %lli \n", gatherBegin, gatherEnd);
+        std::puts("");
+
+        std::vector<Person> vec2 = {{"Sean", 1}, {"Salim",9}, {"Didem", 52}, {"Ben",2 }, {"Kim", 8}};
+        std::printf("before gather Range: ");
+        for (auto elem: vec2) {
+            std::printf("[%s, ID: %i] ", elem.name.c_str(), elem.confID);
+        }
+        std::puts("\n---------------------------------------------");
+
+        auto confPosition = std::next(vec2.begin(), 2);
+        auto confPriority = [](auto elem) { return elem <3;};
+        auto resultConf = gather(vec2, confPosition, confPriority, &Person::confID);
+
+        std::printf("after gather Range: ");
+        for (auto elem: vec2) {
+            std::printf("[%s, ID: %i] ", elem.name.c_str(), elem.confID);
+        }
+        std::puts("\n---------------------------------------------");
+
+        // FIXME: use fmt library !!!
+        std::printf("gather pos begin: %s, gather pos end: %s \n", (resultConf.begin())->name.c_str(), (resultConf.end()-1)->name.c_str());
         std::puts("");
 
     }
