@@ -12,6 +12,6 @@ int main()
     algofun::slideLeft_Test();
     algofun::gather_Test();
     algofun::gatherRange_Test();
-    algofun::stablePartitionPosition();
+    algofun::stablePartition_Position();
 
 }

@@ -20,7 +20,7 @@ namespace algofun
     void slideLeft_Test();
     void gather_Test();
     void gatherRange_Test();
-    void stablePartitionPosition();
+    void stablePartition_Position();
 
 
         struct Person

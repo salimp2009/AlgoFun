@@ -316,7 +316,7 @@ namespace algofun
 
     }
 
-    void stablePartitionPosition()
+    void stablePartition_Position()
     {
         std::puts("--stablePartion_PositionSelect--");
         std::vector vec1 =           {1, 3, 4, 2, 5, 102, 88, 55, 104, 98};
@@ -331,12 +331,11 @@ namespace algofun
             return *(std::next(std::begin(positionSelect), std::distance(vec1.begin(), It)));
         });
 
-        std::puts("after stablePartitionPosition: [expected: no change] :");
+        std::puts("after stablePartitionPosition:");
         for (auto elem: vec1) {
             std::printf("%i ", elem);
         }
         std::puts("");
-
 
     }
 
