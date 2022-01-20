@@ -337,6 +337,19 @@ namespace algofun
         }
         std::puts("");
 
+       std::vector vec2 = {1, 3, 4, 2, 5, 102, 88, 55, 104, 98};
+
+       // FIXME : this version does not work correctly !!
+       stablePartitionPosition2(std::begin(vec2), std::end(vec2), [&](auto It){
+           return *(std::next(std::begin(positionSelect), std::distance(vec2.begin(), It)));
+        });
+
+        std::puts("after stablePartitionPosition2:");
+        for (auto elem: vec2) {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
+
     }
 
 

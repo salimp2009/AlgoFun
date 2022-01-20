@@ -12,7 +12,7 @@ namespace algofun
     template<std::bidirectional_iterator It, std::invocable<It> PredT>
     constexpr auto stablePartitionPosition(It first, It last, PredT pred) ->It
     {
-        // FIXME: try to turn this into while loop
+        // FIXME: try to turn this into while loop; implemented below but does not work properly !!
         const auto n = std::distance(first, last);
         if (n==0) return first;
 
@@ -25,24 +25,27 @@ namespace algofun
                            stablePartitionPosition(mid, last, pred));
     }
 
+    // FIXME : this version does not work correctly !!
     template<std::bidirectional_iterator It, std::invocable<It> PredT>
     constexpr auto stablePartitionPosition2(It first, It last, PredT pred) ->It
     {
-        while(first!=last)
+        // FIXME: these are some trial messy stuff :) !
+        const auto n = std::distance(first, last);
+        if (n==0) return first;
+
+        It result= std::next(first);
+        auto last2=std::next(first);
+        while(last-first!=1)
         {
-            const auto n = std::distance(first, last);
-            if (n==0) return first;
-
             // check predicate against iterator position not the value !!
-            if (n==1) return first + std::invoke(pred, first);
-
-            const auto mid = std::next(first,  n/2);
-            return std::rotate(stablePartitionPosition(first,mid, pred ),
-                               mid,
-                               stablePartitionPosition(mid, last, pred));
-
+            const auto first2 = first + std::invoke(pred, first);
+            const auto mid = std::next(first2, std::distance(first2, last2)/2);
+            last2 =std::next(mid);
+            //const auto mid = std::next(first,  n/2);
+            result = std::rotate(first2, mid, last2);
+            ++first;
         }
-
+        return result;
     }
 
 
