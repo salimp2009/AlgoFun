@@ -6,6 +6,7 @@
 #define ALGOFUN_ALGOFUN_HPP
 
 #include "algorithmsPCH.hpp"
+#include "SortSubRange.hpp"
 
 
 namespace algofun
@@ -21,6 +22,8 @@ namespace algofun
     void gather_Test();
     void gatherRange_Test();
     void stablePartition_Position();
+    void sortsubrangeTest();
+
 
 
         struct Person

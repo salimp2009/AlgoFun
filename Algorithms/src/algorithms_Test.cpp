@@ -1,5 +1,6 @@
 #include "AlgoFun/AlgoFun.hpp"
 
+
 int main()
 {
     algofun::AlgoFun_Test();
@@ -13,5 +14,6 @@ int main()
     algofun::gather_Test();
     algofun::gatherRange_Test();
     algofun::stablePartition_Position();
+    algofun::sortsubrangeTest();
 
 }

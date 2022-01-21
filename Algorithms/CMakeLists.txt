@@ -83,7 +83,11 @@ add_library(algoFunLib
         src/AlgoFun/AlgoFindMissingElem.hpp
         src/AlgoFun/AlgoFun.cpp
         src/AlgoFun/AlgoFun.hpp
-        src/AlgoFun/SlideAlgorithm.hpp src/AlgoFun/GatherAlgorithm.hpp src/AlgoFun/StablePartitionPosition.hpp)
+        src/AlgoFun/SlideAlgorithm.hpp src/AlgoFun/GatherAlgorithm.hpp
+        src/AlgoFun/StablePartitionPosition.hpp
+        src/AlgoFun/SortSubRange.hpp
+        src/AlgoFun/SortSubRange.cpp
+)
 
 target_include_directories(algoFunLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 target_link_libraries(algoFunLib PRIVATE algorithmsPCH)
