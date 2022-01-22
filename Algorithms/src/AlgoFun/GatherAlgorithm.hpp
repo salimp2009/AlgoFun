@@ -53,6 +53,7 @@ constexpr std::ranges::borrowed_subrange_t<R> gather(R&& rng, std::ranges::itera
 /// @swaps only O(N) swaps in case extra memory used in the std::ranges::stable_partition
 /// exactly 2N application of the predicate and projection since stable_partition is called twice
 
+// FIXME: use std::ranges::stable_partition because std::pair is not constexpr yet !!
 template<std::bidirectional_iterator It, std::indirect_unary_predicate<It> PredT>
 constexpr std::pair<It, It> gather(It first, It last, It position, PredT pred)
 {

@@ -12,8 +12,7 @@ namespace algofun
     template<std::bidirectional_iterator It, std::invocable<It> PredT>
     constexpr auto stablePartitionPosition(It first, It last, PredT pred) ->It
     {
-        // FIXME: try to turn this into while loop; implemented below but does not work properly !!
-        // TODO: Add ranges version to it
+        // TODO: Add ranges version of this
         const auto n = std::distance(first, last);
         if (n==0) return first;
 
