@@ -3,9 +3,10 @@
 //
 
 #ifndef ALGOFUN_ALGOFINDMISSINGELEM_HPP
+    #include "algorithmsPCH.hpp"
 #define ALGOFUN_ALGOFINDMISSINGELEM_HPP
 
-#include "algorithmsPCH.hpp"
+
 
 namespace algofun
 {

@@ -3,10 +3,9 @@
 //
 
 #ifndef ALGOFUN_ALGOFUN_HPP
-#define ALGOFUN_ALGOFUN_HPP
-
 #include "algorithmsPCH.hpp"
 #include "SortSubRange.hpp"
+#define ALGOFUN_ALGOFUN_HPP
 
 
 namespace algofun
@@ -23,6 +22,7 @@ namespace algofun
     void gatherRange_Test();
     void stablePartition_Position();
     void sortsubrangeTest();
+    void anyofFast_Test();
 
 
 

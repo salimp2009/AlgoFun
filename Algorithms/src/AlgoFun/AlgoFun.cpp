@@ -340,7 +340,7 @@ namespace algofun
 
        std::vector vec2 = {1, 3, 4, 2, 5, 102, 88, 55, 104, 98};
 
-       // FIXME : this version does not work correctly !!
+       // FIXME : non recursive version but does not work correctly !!
        stablePartitionPosition2(std::begin(vec2), std::end(vec2), [&](auto It){
            return *(std::next(std::begin(positionSelect), std::distance(vec2.begin(), It)));
         });
@@ -350,6 +350,18 @@ namespace algofun
             std::printf("%i ", elem);
         }
         std::puts("");
+    }
+
+    void anyofFast_Test()
+    {
+        std::puts("--anyofFast_Test--");
+        std::vector vec1={1,2,3,4,5,6};
+
+        //auto result = anyofFast(vec1.begin(), vec1.end(), [](auto elem){ return elem==4;});
+        //std::printf("result of any_ofFast; [expected= true]: %s \n", result ? "true": "false" );
+
+       // any_of2(std::begin(vec1), std::end(vec1), [](auto val) { return value ==4;});
+        //any_of2(std::begin(vec1), std::end(vec1), [](auto e) { return e == 3; });
 
     }
 

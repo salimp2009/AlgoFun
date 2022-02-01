@@ -15,5 +15,6 @@ int main()
     algofun::gatherRange_Test();
     algofun::stablePartition_Position();
     algofun::sortsubrangeTest();
+    algofun::anyofFast_Test();
 
 }

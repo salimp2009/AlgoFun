@@ -14,20 +14,20 @@ namespace algofun
 {
 //<std::projected<I,Proj>> Pred >
     template<std::input_iterator I, std::sentinel_for<I> S,
-            class Proj=std::identity,
-            std::indirect_binary_predicate<std::projected<I,Proj>, std::projected<S,Proj>> Pred>
-    inline constexpr auto anyofFast(I&& First, S&& Last, Pred&& pred, Proj&& proj={}) ->std::pair<bool, I>
+            class Proj=std::identity, typename Pred>
+    inline constexpr auto anyofFast(I&& First, S&& Last, Pred&& pred, Proj&& proj={})
     {
-
-        return std::reduce(First, Last, false, [&pred, &proj](const auto& elem1, const auto& elem2)
+        return std::reduce(First, Last, false, [pred](auto& elem1, auto& elem2)
                                            {
-                                                return proj(elem1) || pred(proj(elem2));
+                                                return elem1 || pred(elem2);
                                            } );
-
-        return std::pair{true, First};
     }
 
-
+    template<class I, class P>
+    auto any_of2(I f, I l, P p) {
+        return std::reduce(f, l, false,
+                           [p](auto a, auto b) { return a || p(b); });
+    }
 
 
 
