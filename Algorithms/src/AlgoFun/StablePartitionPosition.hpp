@@ -12,7 +12,7 @@ namespace algofun
     template<std::bidirectional_iterator It, std::invocable<It> PredT>
     constexpr auto stablePartitionPosition(It first, It last, PredT pred) ->It
     {
-        // TODO: Add ranges version of this
+        // TODO: Add ranges version of this and use it in gather algorithm to create gather position
         const auto n = std::distance(first, last);
         if (n==0) return first;
 

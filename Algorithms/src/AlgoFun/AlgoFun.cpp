@@ -8,6 +8,7 @@
 #include "SlideAlgorithm.hpp"
 #include "GatherAlgorithm.hpp"
 #include "StablePartitionPosition.hpp"
+#include "anyofFast.hpp"
 
 
 namespace algofun
