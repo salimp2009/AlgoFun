@@ -8,7 +8,6 @@
 #include "SlideAlgorithm.hpp"
 #include "GatherAlgorithm.hpp"
 #include "StablePartitionPosition.hpp"
-#include "anyof.hpp"
 
 namespace algofun
 {
@@ -351,22 +350,10 @@ namespace algofun
         std::puts("");
     }
 
-// FIXME : this is not working when it is in the test function but
-//  any_of2 works when called from the main directly
-void anyof_Test()
-{
-    std::puts("--anyof_Test--");
-
-    const std::vector vec1 = {1,2,3,4,5,6,7};
-    const auto result =  any_of2(std::begin(vec1), std::end(vec1), [](auto e) { return e == 3; });
-    std::printf("any_of2 from test: [expected 1 or true]: %i \n", result );
-
-    std::puts("");
-}
 
 
 
 
-    }// end of namespace
+}// end of namespace
 
 

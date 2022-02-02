@@ -23,7 +23,6 @@ namespace algofun
     void gatherRange_Test();
     void stablePartition_Position();
     void sortsubrangeTest();
-    void anyof_Test();
 
 
 

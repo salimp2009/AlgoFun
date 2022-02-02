@@ -40,7 +40,7 @@ if(MSVC)
 else()
     add_definitions(-DIS_MSVC=false)
     #add_definitions(-Werror)
-    #add_definitions(-Wall)
+    add_definitions(-Wall)
     add_definitions(-Wextra)
     add_definitions(-Wold-style-cast)
     add_definitions(-Wno-unused-variable)
@@ -89,7 +89,7 @@ add_library(algoFunLib
         src/AlgoFun/StablePartitionPosition.hpp
         src/AlgoFun/SortSubRange.hpp
         src/AlgoFun/SortSubRange.cpp
-        src/AlgoFun/anyof.hpp)
+        )
 
 target_include_directories(algoFunLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 target_link_libraries(algoFunLib PRIVATE algorithmsPCH)
