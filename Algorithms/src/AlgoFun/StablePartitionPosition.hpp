@@ -7,6 +7,7 @@
 
 #include "algorithmsPCH.hpp"
 
+
 namespace algofun
 {
     template<std::bidirectional_iterator It, std::invocable<It> PredT>

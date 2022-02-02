@@ -3,10 +3,10 @@
 //
 
 #ifndef ALGOFUN_ALGOFUN_HPP
-#include "algorithmsPCH.hpp"
-#include "SortSubRange.hpp"
 #define ALGOFUN_ALGOFUN_HPP
 
+#include "algorithmsPCH.hpp"
+#include "SortSubRange.hpp"
 
 namespace algofun
 {
@@ -35,19 +35,6 @@ namespace algofun
 
 
 
-
-
-
-
-
-
-
-
 } // end of namespace
-
-
-
-
-
 
 #endif //ALGOFUN_ALGOFUN_HPP

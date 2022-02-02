@@ -3,10 +3,9 @@
 //
 
 #ifndef ALGOFUN_SLIDEALGORITHM_HPP
-
-    #include "algorithmsPCH.hpp"
-
 #define ALGOFUN_SLIDEALGORITHM_HPP
+
+#include "algorithmsPCH.hpp"
 
 
 namespace algofun

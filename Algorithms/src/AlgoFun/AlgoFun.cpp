@@ -10,7 +10,6 @@
 #include "StablePartitionPosition.hpp"
 #include "anyofFast.hpp"
 
-
 namespace algofun
 {
 
@@ -357,11 +356,17 @@ namespace algofun
         std::puts("--anyofFast_Test--");
         std::vector vec1={1,2,3,4,5,6};
 
-        //auto result = anyofFast(vec1.begin(), vec1.end(), [](auto elem){ return elem==4;});
-        //std::printf("result of any_ofFast; [expected= true]: %s \n", result ? "true": "false" );
+        auto result = anyofFast(vec1.begin(), vec1.end(), [](auto elem){ return elem==3;});
+        std::printf("result of any_ofFast; [expected= true]: %s \n", result ? "true": "false" );
 
-       // any_of2(std::begin(vec1), std::end(vec1), [](auto val) { return value ==4;});
-        //any_of2(std::begin(vec1), std::end(vec1), [](auto e) { return e == 3; });
+        any_of2(std::begin(vec1), std::end(vec1), [](auto val) { return val ==4;});
+        any_of2(std::begin(vec1), std::end(vec1), [](auto e) { return e == 3; });
+
+        auto result2 = std::ranges::any_of(vec1, [](auto e) { return e == 3; } );
+        std::printf("result of std::ranges; [expected= true]: %s \n", result2 ? "true": "false" );
+
+        auto result3 = std::reduce(vec1.begin(), vec1.end(), false, [](auto val, auto elem){ return val || elem==3;});
+        std::printf("result of reduce; [expected= true]: %i \n", result3);
 
     }
 
