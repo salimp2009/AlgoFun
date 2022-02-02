@@ -8,6 +8,7 @@
 #include "algorithmsPCH.hpp"
 #include "SortSubRange.hpp"
 
+
 namespace algofun
 {
     void AlgoFun_Test();
@@ -22,7 +23,8 @@ namespace algofun
     void gatherRange_Test();
     void stablePartition_Position();
     void sortsubrangeTest();
-    void anyofFast_Test();
+    void anyof_Test();
+
 
 
 

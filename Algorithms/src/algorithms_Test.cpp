@@ -1,13 +1,7 @@
 
 #include "algorithmsPCH.hpp"
 #include "AlgoFun/AlgoFun.hpp"
-
-template<class I, class P>
-auto any_of3(I f, I l, P p)
-{
-    return std::reduce(f, l, false,
-                       [p](auto a, auto b) { return a || p(b); });
-}
+#include "AlgoFun/anyof.hpp"
 
 
 int main()
@@ -24,12 +18,15 @@ int main()
     algofun::gatherRange_Test();
     algofun::stablePartition_Position();
     algofun::sortsubrangeTest();
-    algofun::anyofFast_Test();
+    algofun::anyof_Test();
 
-    // for testing purposes
-    std::vector v = { 1, 2, 3 };
-    auto x =  any_of3(std::begin(v), std::end(v), [](auto e) { return e == 3; });
-    std::cout<<"any_of from main:"<< x<<'\n';
+
+    // for testing purposes;
+    // FIXME : this is not working when it is in the test function but
+    //  any_of2 works when called from the main directly
+   std::vector v = { 1, 2, 3 };
+   auto xx = algofun::any_of2(v.begin(), v.end(), [](auto elem) { return elem==3;});
+   std::printf("xx from main (anyof): %i \n", xx);
 
 
 }

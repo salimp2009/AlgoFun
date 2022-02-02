@@ -8,7 +8,7 @@
 #include "SlideAlgorithm.hpp"
 #include "GatherAlgorithm.hpp"
 #include "StablePartitionPosition.hpp"
-#include "anyofFast.hpp"
+#include "anyof.hpp"
 
 namespace algofun
 {
@@ -351,26 +351,18 @@ namespace algofun
         std::puts("");
     }
 
-    void anyofFast_Test()
-    {
-        std::puts("--anyofFast_Test--");
-        std::vector vec1={1,2,3,4,5,6};
+// FIXME : this is not working when it is in the test function but
+//  any_of2 works when called from the main directly
+void anyof_Test()
+{
+    std::puts("--anyof_Test--");
 
-        auto result = anyofFast(vec1.begin(), vec1.end(), [](auto elem){ return elem==3;});
-        std::printf("result of any_ofFast; [expected= true]: %s \n", result ? "true": "false" );
+    const std::vector vec1 = {1,2,3,4,5,6,7};
+    const auto result =  any_of2(std::begin(vec1), std::end(vec1), [](auto e) { return e == 3; });
+    std::printf("any_of2 from test: [expected 1 or true]: %i \n", result );
 
-        any_of2(std::begin(vec1), std::end(vec1), [](auto val) { return val ==4;});
-        any_of2(std::begin(vec1), std::end(vec1), [](auto e) { return e == 3; });
-
-        auto result2 = std::ranges::any_of(vec1, [](auto e) { return e == 3; } );
-        std::printf("result of std::ranges; [expected= true]: %s \n", result2 ? "true": "false" );
-
-        auto result3 = std::reduce(vec1.begin(), vec1.end(), false, [](auto val, auto elem){ return val || elem==3;});
-        std::printf("result of reduce; [expected= true]: %i \n", result3);
-
-    }
-
-
+    std::puts("");
+}
 
 
 
