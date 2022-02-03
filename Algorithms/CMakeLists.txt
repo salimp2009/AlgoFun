@@ -89,7 +89,7 @@ add_library(algoFunLib
         src/AlgoFun/StablePartitionPosition.hpp
         src/AlgoFun/SortSubRange.hpp
         src/AlgoFun/SortSubRange.cpp
-        )
+        src/AlgoFun/accumulate_n.hpp)
 
 target_include_directories(algoFunLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 target_link_libraries(algoFunLib PRIVATE algorithmsPCH)

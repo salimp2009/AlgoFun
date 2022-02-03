@@ -8,6 +8,7 @@
 #include "SlideAlgorithm.hpp"
 #include "GatherAlgorithm.hpp"
 #include "StablePartitionPosition.hpp"
+#include "accumulate_n.hpp"
 
 namespace algofun
 {
