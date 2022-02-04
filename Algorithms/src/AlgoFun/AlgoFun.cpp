@@ -351,6 +351,25 @@ namespace algofun
         std::puts("");
     }
 
+    void accumlateN_Test()
+    {
+        std::puts("--accumlateN_Test--");
+        std::vector vec1 = {1, 3, 4, 5, 10, 15, 20, 35};
+        const auto [sum, position] = accumulate_n(std::ranges::begin(vec1), 4u, 0, [](auto init, const auto& elem) {return init+=elem;});
+        std::printf("sum: %i, Counted upto: %lli \n", sum, std::distance(vec1.begin(), position)+1);
+
+        const auto [sum0, position0] = accumulate_nAlt(std::ranges::begin(vec1), 4u, 0, [](auto init, const auto& elem) {return init+=elem;});
+        std::printf("sum0: %i, Counted upto: %lli \n", sum0, std::distance(vec1.begin(), position0)+1);
+
+        int sum2=0;
+        for(const auto& elem : vec1 | std::ranges::views::take(4))
+        {
+            sum2+=elem;
+        }
+        std::printf("sum2: %i ", sum2);
+
+    }
+
 
 
 
