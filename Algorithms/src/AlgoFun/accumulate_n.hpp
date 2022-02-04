@@ -26,9 +26,11 @@ namespace algofun
         return {std::move(init), last};
     }
 
-    // FIXME: Range version; needs testing
+    // FIXME: Range version; needs testing and
+    //  also std::predicate might be changed with
+    //  std::indirect_binary_predicate<T*,std::projected<std::ranges::iterator_t<Range>, Proj>
     template<std::ranges::input_range Range, unsignedInt Size, typename T, class Proj=std::identity,
-             std::predicate<T, std::iter_value_t<std::ranges::iterator_t<Range>>> BinaryOp>
+             std::predicate<T, typename std::projected<std::ranges::iterator_t<Range>, Proj>::value_type> BinaryOp>
     constexpr auto accumulate_nR(Range&& range, Size&& n, T&& init, BinaryOp&& op, Proj&& proj={} )-> std::pair<T, std::ranges::iterator_t<Range>>
     {
         auto first = std::ranges::begin(range);
