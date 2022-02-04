@@ -10,34 +10,50 @@
 
 namespace algofun
 {
-    // FIXME:: change unsigned_integral to unsigned_integer
-    // FIXME:: bug: we can reach out of container; first + n > container.size(); !!!
-    // FIXME:: use a range version so we can check out of boundaries condition
-    //  or use std::views::take(n) this does not go over boundaries
-    template<std::input_iterator InputIt, std::unsigned_integral Size, typename T, std::predicate<T, std::iter_value_t<InputIt>> BinaryOp>
+
+    // FIXME : add inputIT last so we check against
+    template<typename T>
+    concept unsignedInt = std::is_unsigned_v<T>;
+
+    template<std::input_iterator InputIt, unsignedInt Size, typename T, std::predicate<T, std::iter_value_t<InputIt>> BinaryOp>
     constexpr auto accumulate_n(InputIt&& first,Size&& n, T&& init, BinaryOp&& op )-> std::pair<T, InputIt>
     {
         if(n==0) return {init, first};
 
-        // FIXME: check if last and newinit can be constexpr without effecting return value optimization
-        // FIXME: make a range version using views::take for n elements
         auto last =std::ranges::next(first, n);
         init = std::accumulate(first, last, std::move(init), std::move(op));
 
-        return {init, last};
+        return {std::move(init), last};
+    }
+
+    // FIXME: Range version; needs testing
+    template<std::ranges::input_range Range, unsignedInt Size, typename T, class Proj=std::identity,
+             std::predicate<T, std::iter_value_t<std::ranges::iterator_t<Range>>> BinaryOp>
+    constexpr auto accumulate_nR(Range&& range, Size&& n, T&& init, BinaryOp&& op, Proj&& proj={} )-> std::pair<T, std::ranges::iterator_t<Range>>
+    {
+        auto first = std::ranges::begin(range);
+        if(n==0) return {std::move(init), first};
+
+        n =std::ranges::min(n, std::ranges::size(range));
+        for(; n>0; --n, ++first)
+        {
+            init =std::invoke(std::forward<BinaryOp>(op), std::move(init), std::invoke(proj, *first));
+        }
+
+        return {std::move(init), first};
     }
 
     // FIXME: test this might more optimized !!
     template<std::input_iterator InputIt, std::unsigned_integral Size, typename T, std::predicate<T, std::iter_value_t<InputIt>> BinaryOp>
     constexpr auto accumulate_nAlt(InputIt&& first,Size&& n, T&& init, BinaryOp&& op )-> std::pair<T, InputIt>
     {
-        if(n==0) return {init, first};
+        if(n==0) return {std::move(init), first};
 
         for(; n>0; --n, ++first)
         {
             init =std::invoke(std::forward<BinaryOp>(op), std::move(init), *first);
         }
-        return {init, first};
+        return {std::move(init), first};
     }
 
 }
