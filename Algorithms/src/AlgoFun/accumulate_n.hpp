@@ -11,13 +11,15 @@
 namespace algofun
 {
 
-    // FIXME : add inputIT last so we check against
+    // FIXME : make unsigned convertible
     template<typename T>
-    concept unsignedInt = std::is_unsigned_v<T>;
+    concept unsignedType = std::is_unsigned_v<T>;
+
+
 
 
     // FIXME: test this; std::indirect_binary_predicate<T*,std::projected<std::ranges::iterator_t<Range>, Proj>
-    template<std::ranges::input_range Range, unsignedInt Size, typename T, class Proj=std::identity,
+    template<std::ranges::input_range Range, unsignedType Size, typename T, class Proj=std::identity,
              std::predicate<T, typename std::projected<std::ranges::iterator_t<Range>, Proj>::value_type> BinaryOp>
     inline constexpr auto accumulate_n(Range&& range, Size&& n, T&& init, BinaryOp&& op, Proj&& proj={} )-> std::pair<T, std::ranges::iterator_t<Range>>
     {
@@ -34,8 +36,8 @@ namespace algofun
         return {std::forward<T>(init), first};
     }
 
-    // FIXME: add last iterator to avoid  !!
-    template<std::input_iterator InputIt, std::unsigned_integral Size, typename T, std::predicate<T, std::iter_value_t<InputIt>> BinaryOp>
+
+    template<std::input_iterator InputIt, unsignedType Size, typename T, std::predicate<T, std::iter_value_t<InputIt>> BinaryOp>
     inline constexpr auto accumulate_n(InputIt first, InputIt last, Size&& n, T init, BinaryOp op )-> std::pair<T, InputIt>
     {
         if(n==0) return {std::move(init), first};
