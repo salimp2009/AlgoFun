@@ -356,7 +356,7 @@ namespace algofun
         std::puts("--accumlateN_Test--");
         std::vector vec1 = {1, 3, 4, 10, 10, 15, 20, 35};
 
-        const auto [sum0, position0] = accumulate_n(std::begin(vec1), std::end(vec1), 15u, 0, [](const auto& init, const auto& elem) {return init+elem;});
+        const auto [sum0, position0] = accumulate_n(std::begin(vec1), std::end(vec1), 15u, 0, [](const auto& init, const auto& elem) {return init + elem;});
         std::printf("sum0: %i, Counted upto: %lli \n", sum0, std::distance(vec1.begin(), position0)+1);
 
         // NOTE: red squiggles showing wrong error due to clang-tidy/clang is behind C++20
@@ -390,13 +390,16 @@ namespace algofun
             std::printf(" -> %lli sec ", elem.count());
         }
 
-       const auto [sum1, position1] = accumulate_n(std::begin(vec1), std::end(vec1), 4u, 0s, [](auto&& init, auto&& elem) {return init+elem;} );
+       const auto [sum1, position1] = accumulate_n(std::begin(vec1), std::end(vec1), 4u, 0s, [](auto&& init, auto&& elem) {return init + elem;} );
         std::printf("duration version: sum1: %lli, Counted upto: %lli \n", sum1.count(), std::distance(vec1.begin(), position1)+1);
         std::puts("");
 
         const auto [sum2, position2] = accumulate_n(std::begin(vec1), std::end(vec1), 4u);
         std::printf("default initial + default plus<>: sum2: %lli, Counted upto: %lli \n", sum2.count(), std::distance(vec1.begin(), position2)+1);
         std::puts("");
+
+        const auto [sum3, position3] = accumulate_n(vec1, 15u, 0s, [](auto init, const auto& elem) {return init+elem;} );
+        std::printf("ranges duration version: sum3: %lli, Counted upto: %lli \n", sum3.count(), std::distance(vec1.begin(), position3)+1);
 
 
     }
