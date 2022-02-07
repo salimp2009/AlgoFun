@@ -24,6 +24,7 @@ namespace algofun
     void stablePartition_Position();
     void sortsubrangeTest();
     void accumlateN_Test();
+    void accumlateN_ChronoDur_Test();
 
 
 

@@ -17,6 +17,7 @@ int main()
     algofun::stablePartition_Position();
     algofun::sortsubrangeTest();
     algofun::accumlateN_Test();
+    algofun::accumlateN_ChronoDur_Test();
 
 
 
