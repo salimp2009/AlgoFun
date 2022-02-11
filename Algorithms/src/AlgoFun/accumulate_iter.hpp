@@ -17,35 +17,35 @@ namespace algofun
     // FIXME: Test ; Not sure if regular_invocable will work;
     //  it might be changed to iterator_value_t<iterator_t<Range>> or ranges_value_t<Range>
     template<std::ranges::input_range Range, typename T,
-            std::regular_invocable<T, std::ranges::iterator_t<Range>> BinaryOp=std::plus<>>
-    inline constexpr auto accumulate_iter(Range&& range, T&& init=T{}, BinaryOp op={})-> std::pair<T, std::ranges::iterator_t<Range>>
+            std::regular_invocable<T, std::ranges::iterator_t<Range>> BinaryOp>
+    inline constexpr auto accumulate_iter(Range&& range, T&& init, BinaryOp op)->T
     {
         auto first = std::ranges::begin(range);
         auto last = std::ranges::end(range);
-        if(first==last) return {std::forward<T>(init), first};
+        if(first==last) return {std::forward<T>(init)};
 
         for(;first!=last; ++first)
         {
             init =std::invoke(std::forward<BinaryOp>(op), std::forward<T>(init), first);
         }
 
-        return {std::forward<T>(init), first};
+        return {std::forward<T>(init)};
     }
 
 
     // FIXME: Test ; Not sure if regular_invocable will work;
     //  it might be changed to iterator_value_t<iterator_t<Range>>
     template<std::input_iterator InputIt, typename T=std::iter_value_t<InputIt> ,
-            std::regular_invocable<T, InputIt> BinaryOp=std::plus<>>
-    inline constexpr auto accumulate_iter(InputIt first, InputIt last, T init=T{}, BinaryOp op={})-> std::pair<T, InputIt>
+            std::regular_invocable<T, InputIt> BinaryOp>
+    inline constexpr auto accumulate_iter(InputIt first, InputIt last, T init, BinaryOp op)-> T
     {
-        if(first==last) return {std::move(init), first};
+        if(first==last) return {std::move(init)};
 
         for(;first!=last; ++first)
         {
             init =std::invoke(std::move(op), std::move(init), first);
         }
-        return {std::move(init), first};
+        return {std::move(init)};
     }
 
 

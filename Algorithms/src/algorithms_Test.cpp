@@ -18,6 +18,7 @@ int main()
     algofun::sortsubrangeTest();
     algofun::accumlateN_Test();
     algofun::accumlateN_ChronoDur_Test();
+    algofun::accumulate_iterTest();
 
 
 

@@ -407,7 +407,18 @@ namespace algofun
 
     }
 
+    void accumulate_iterTest()
+    {
+        std::puts("--accumulate_iterTest--");
+        std::vector vec1 ={1, 3, 4, 10, 10, 15, 20, 3};
+        auto sum1 = accumulate_iter(vec1, 0, [](auto&& init, auto currentIter) { return init +  *currentIter;  });
+        std::printf("accumulate _iter; range version: [expected: 66] %i", sum1);
 
+        using namespace std::chrono_literals;
+        std::vector vec2 ={1s, 3s, 4s, 10s, 10s, 15s, 20s, 3s};
+        auto sum2 = accumulate_iter(vec2, 0s, [](auto&& init, auto currentIter) { return init + *currentIter;} );
+        std::printf("accumulate_iter with chrono dur: [expected: 66] %lli", sum2.count());
+    }
 
 
 
