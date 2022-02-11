@@ -14,10 +14,8 @@ namespace algofun
     template<typename T>
     concept unsignedType = std::is_unsigned_v<T>;
 
-    /// @warning    chrono::duration is not convertible to bool therefore  std::predicate<T, U> won't work
+    /// @warning    std::predicate<T, U> requirement std::boolean_testable did not work std::chrono::duration
     /// @warning    therefore switched from std::predicate to std::regular_invocable
-    static_assert(not std::convertible_to<std::chrono::duration<int>, bool>);
-    static_assert(std::convertible_to<decltype(std::declval<std::chrono::duration<int>>().count()), bool>);
 
 
     template<std::ranges::input_range Range, unsignedType Size, typename T, class Proj=std::identity,
@@ -28,7 +26,7 @@ namespace algofun
         if(n==0) return {std::forward<T>(init), first};
 
         const auto newLast = std::ranges::next(std::ranges::begin(range), n);
-        const auto newSize = std::ranges::distance(std::ranges::begin(range), newLast);
+        const auto newSize = std::ranges::distance(std::ranges::cbegin(range), newLast);
         n =static_cast<Size>(std::ranges::min(newSize, std::ranges::ssize(range)));
 
         for(; n>0; --n, ++first)

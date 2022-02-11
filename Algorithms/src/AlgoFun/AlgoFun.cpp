@@ -9,6 +9,7 @@
 #include "GatherAlgorithm.hpp"
 #include "StablePartitionPosition.hpp"
 #include "accumulate_n.hpp"
+#include "accumulate_iter.hpp"
 
 namespace algofun
 {
@@ -384,21 +385,23 @@ namespace algofun
         using namespace std::chrono_literals;
 
         std::vector vec1 ={1s, 3s, 4s, 10s, 10s, 15s, 20s, 35s};
-        std::printf("duration(seconds): ");
+        std::printf("originaldurations(seconds): ");
         for(const auto& elem : vec1)
         {
             std::printf(" -> %lli sec ", elem.count());
         }
 
-       const auto [sum1, position1] = accumulate_n(std::begin(vec1), std::end(vec1), 4u, 0s, [](auto&& init, auto&& elem) {return init + elem;} );
-        std::printf("duration version: sum1: %lli, Counted upto: %lli \n", sum1.count(), std::distance(vec1.begin(), position1)+1);
+        std::puts(" ");
+
+       const auto [sum1, position1] = accumulate_n(std::cbegin(vec1), std::cend(vec1), 4u, 0s, [](auto&& init, const auto& elem) {return init + elem;} );
+        std::printf("\nduration version: sum1: %lli, Counted upto: %lli \n", sum1.count(), std::distance(vec1.cbegin(), position1)+1);
         std::puts("");
 
-        const auto [sum2, position2] = accumulate_n(std::begin(vec1), std::end(vec1), 4u);
-        std::printf("default initial + default plus<>: sum2: %lli, Counted upto: %lli \n", sum2.count(), std::distance(vec1.begin(), position2)+1);
+        const auto [sum2, position2] = accumulate_n(std::cbegin(vec1), std::cend(vec1), 4u);
+        std::printf("duration with default plus<>: sum2: %lli, Counted upto: %lli \n", sum2.count(), std::distance(vec1.cbegin(), position2)+1);
         std::puts("");
 
-        const auto [sum3, position3] = accumulate_n(vec1, 15u, 0s, [](auto init, const auto& elem) {return init+elem;} );
+        const auto [sum3, position3] = accumulate_n(vec1, 15u, 0s, [](auto&& init, const auto& elem) {return std::move(init+elem);} );
         std::printf("ranges duration version: sum3: %lli, Counted upto: %lli \n", sum3.count(), std::distance(vec1.begin(), position3)+1);
 
 
