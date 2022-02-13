@@ -48,6 +48,7 @@ else()
     add_definitions(-Wno-unused-value)
     add_definitions(-Wno-cpp)
     add_definitions(-Wconversion)
+    #add_definitions(-Wpessimizing-move)
 
     if(IS_GNU)
     add_definitions(-Wmisleading-indentation)
@@ -55,6 +56,7 @@ else()
     add_definitions(-Wduplicated-branches)
     add_definitions(-Wlogical-op)  # warn about logical operations being used where bitwise were probably wanted
     add_definitions(-Wuseless-cast) # warn if you perform a cast to the same type
+    add_definitions(-Wpessimizing-move)
     endif()
 
     if(IS_CLANG)
@@ -64,7 +66,7 @@ else()
 
     else()
         add_definitions(-fcoroutines) # required for GCC-10
-        #add_definitions(-fpermissive) # to relax typename requirement
+        add_definitions(-fpermissive) # to relax typename requirement
 
     endif()
 endif()

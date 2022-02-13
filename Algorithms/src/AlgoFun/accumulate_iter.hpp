@@ -13,10 +13,7 @@ namespace algofun
 
     /// * accumulate_iter is a helper function that operates on iterator without dereferencing to be able to implement other algorithms
 
-
-    // FIXME: Test ; Not sure if regular_invocable will work;
-    //  it might be changed to iterator_value_t<iterator_t<Range>> or ranges_value_t<Range>
-    template<std::ranges::input_range Range, typename T,
+    template<std::ranges::input_range Range, typename T=std::ranges::range_value_t<Range>,
             std::regular_invocable<T, std::ranges::iterator_t<Range>> BinaryOp>
     inline constexpr auto accumulate_iter(Range&& range, T&& init, BinaryOp op)->T
     {
@@ -33,11 +30,9 @@ namespace algofun
     }
 
 
-    // FIXME: Test ; Not sure if regular_invocable will work;
-    //  it might be changed to iterator_value_t<iterator_t<Range>>
     template<std::input_iterator InputIt, typename T=std::iter_value_t<InputIt> ,
             std::regular_invocable<T, InputIt> BinaryOp>
-    inline constexpr auto accumulate_iter(InputIt first, InputIt last, T init, BinaryOp op)-> T
+    inline constexpr auto accumulate_iter(InputIt first, InputIt last, T&& init, BinaryOp op)-> T
     {
         if(first==last) return {std::move(init)};
 
