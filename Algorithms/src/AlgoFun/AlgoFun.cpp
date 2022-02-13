@@ -10,6 +10,7 @@
 #include "StablePartitionPosition.hpp"
 #include "accumulate_n.hpp"
 #include "accumulate_iter.hpp"
+#include "algoConcepts.hpp"
 
 namespace algofun
 {

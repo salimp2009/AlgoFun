@@ -6,20 +6,18 @@
 #define ALGOFUN_ACCUMULATE_N_HPP
 
 #include "algorithmsPCH.hpp"
+#include "algoConcepts.hpp"
 
 
 namespace algofun
 {
-
-    template<typename T>
-    concept unsignedType = std::is_unsigned_v<T>;
 
     /// @warning    std::predicate<T, U> requirement std::boolean_testable did not work std::chrono::duration
     /// @warning    therefore switched from std::predicate to std::regular_invocable
 
 
     template<std::ranges::input_range Range, unsignedType Size, typename T, class Proj=std::identity,
-            std::regular_invocable<T, typename std::projected<std::ranges::iterator_t<Range>, Proj>::value_type> BinaryOp=std::plus<>>
+            std::invocable<T, typename std::projected<std::ranges::iterator_t<Range>, Proj>::value_type> BinaryOp=std::plus<>>
     inline constexpr auto accumulate_n(Range&& range, Size&& n, T&& init=T{}, BinaryOp op={}, Proj&& proj={} )-> std::pair<T, std::ranges::iterator_t<Range>>
     {
         auto first = std::ranges::begin(range);

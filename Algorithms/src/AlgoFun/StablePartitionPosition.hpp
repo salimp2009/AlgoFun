@@ -49,9 +49,6 @@ namespace algofun
         return result;
     }
 
-
-
-
 } // end of namespace
 
 #endif //ALGOFUN_STABLEPARTITIONPOSITION_HPP
