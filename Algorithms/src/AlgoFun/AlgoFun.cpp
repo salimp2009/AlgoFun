@@ -11,6 +11,7 @@
 #include "accumulate_n.hpp"
 #include "accumulate_iter.hpp"
 #include "algoConcepts.hpp"
+#include "fold_left.hpp"
 
 namespace algofun
 {
@@ -407,6 +408,7 @@ namespace algofun
 
 
     }
+
 
     void accumulate_iterTest()
     {
