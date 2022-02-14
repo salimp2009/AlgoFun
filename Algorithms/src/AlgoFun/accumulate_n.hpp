@@ -16,7 +16,7 @@ namespace algofun
     /// @warning    therefore switched from std::predicate to std::regular_invocable
 
 
-    template<std::ranges::input_range Range, unsignedType Size, typename T, class Proj=std::identity,
+    template<std::ranges::input_range Range, details::unsignedType Size, typename T, class Proj=std::identity,
             std::invocable<T, typename std::projected<std::ranges::iterator_t<Range>, Proj>::value_type> BinaryOp=std::plus<>>
     inline constexpr auto accumulate_n(Range&& range, Size&& n, T&& init=T{}, BinaryOp op={}, Proj&& proj={} )-> std::pair<T, std::ranges::iterator_t<Range>>
     {
@@ -36,7 +36,7 @@ namespace algofun
     }
 
 
-    template<std::input_iterator InputIt, unsignedType Size, typename T=std::iter_value_t<InputIt> ,
+    template<std::input_iterator InputIt, details::unsignedType Size, typename T=std::iter_value_t<InputIt> ,
             std::regular_invocable<T, std::iter_value_t<InputIt>> BinaryOp=std::plus<>>
     inline constexpr auto accumulate_n(InputIt first, InputIt last, Size&& n, T init=T{}, BinaryOp op={})-> std::pair<T, InputIt>
     {
