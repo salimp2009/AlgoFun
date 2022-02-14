@@ -8,6 +8,9 @@
 namespace algofun
 {
 
+    // FIXME: add a range version and
+    //  update the concept details::indirectlyLeftFoldable for projection
+
     template<std::input_iterator I, std::sentinel_for<I> S, class T,
             details::indirectlyLeftFoldable<T, I> Op>
     auto constexpr fold_left(I first, S last, T&& init, Op op)
