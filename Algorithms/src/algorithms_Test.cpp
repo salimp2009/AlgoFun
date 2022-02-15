@@ -19,6 +19,7 @@ int main()
     algofun::accumlateN_Test();
     algofun::accumlateN_ChronoDur_Test();
     algofun::accumulate_iterTest();
+    algofun::foldleft_Test();
 
 
 
