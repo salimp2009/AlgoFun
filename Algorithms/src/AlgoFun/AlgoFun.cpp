@@ -12,6 +12,10 @@
 #include "accumulate_iter.hpp"
 #include "algoConcepts.hpp"
 #include "fold_left.hpp"
+#include "reduce_par.hpp"
+#include "stable_partitionPos.hpp"
+
+
 
 namespace algofun
 {
@@ -323,7 +327,7 @@ namespace algofun
     {
         std::puts("--stablePartion_PositionSelect--");
         std::vector vec1 =           {1, 3, 4, 2, 5, 102, 88, 55, 104, 98};
-        std::vector positionSelect = {0, 1, 0, 1, 0, 0,    1, 0, 0, 0};
+        const std::vector positionSelect = {0, 1, 0, 1, 0, 0,    1, 0, 0, 0};
         std::puts("before stablePartitionPosition: ");
         for (auto elem: vec1) {
             std::printf("%i ", elem);

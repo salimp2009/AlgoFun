@@ -26,7 +26,9 @@ namespace algofun
                            stablePartitionPosition(mid, last, pred));
     }
 
-    // FIXME : non_recursive version: it does not work correctly YET :) !!
+    // FIXME : original stable partition is recursive but used extra memory to move unselected items:
+    //  so iterative approach will not be efficient; this does not work;
+    //  either delete or use stable_partition_adaptive method
     template<std::bidirectional_iterator It, std::invocable<It> PredT>
     constexpr auto stablePartitionPosition2(It first, It last, PredT pred) ->It
     {

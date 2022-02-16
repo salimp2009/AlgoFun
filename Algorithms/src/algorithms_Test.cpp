@@ -21,6 +21,4 @@ int main()
     algofun::accumulate_iterTest();
     algofun::foldleft_Test();
 
-
-
 }

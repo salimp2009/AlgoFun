@@ -5,24 +5,26 @@
 #ifndef ALGOFUN_FOLD_LEFT_HPP
 #define ALGOFUN_FOLD_LEFT_HPP
 
+#include "algorithmsPCH.hpp"
+
 namespace algofun
 {
     // FIXME: add a range version and
     //  update the concept details::indirectlyLeftFoldable for projection
     template<std::input_iterator I, std::sentinel_for<I> S, class T,
-            details::indirectlyLeftFoldable<T, I> Op>
-    auto constexpr fold_left(I first, S last, T&& init, Op op)
+            details::indirectlyLeftFoldable<T, I> Op,
+            class R = std::invoke_result_t<Op&, T, std::iter_reference_t<I>>>
+    constexpr auto  fold_left(I first, S last, T&& init, Op op) ->R
     {
-        using R = std::invoke_result_t<Op&, T, std::iter_reference_t<I>>;
         if(first == last)
         {
-            return R(std::forward<T>(init));
+            return {std::move(init)};
         }
 
-        auto accum = std::invoke(op, std::forward<T>(init), *first);
+        auto accum = std::invoke(std::forward<Op>(op), std::move(init), *first);
         for(++first; first != last; ++first)
         {
-          accum = std::invoke(op, std::forward<decltype(accum)>(accum), *first);
+          accum = std::invoke(std::forward<Op>(op), std::move(accum), *first);
         }
 
         return accum;

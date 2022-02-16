@@ -29,10 +29,10 @@ namespace algofun
 
         for(; n>0; --n, ++first)
         {
-            init =std::invoke(std::forward<BinaryOp>(op), std::forward<T>(init), std::invoke(proj, *first));
+            init =std::invoke(std::forward<BinaryOp>(op), std::move(init), std::invoke(proj, *first));
         }
 
-        return {std::forward<T>(init), first};
+        return {std::move(init), first};
     }
 
 

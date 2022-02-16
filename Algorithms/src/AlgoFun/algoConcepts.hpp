@@ -12,7 +12,7 @@ namespace algofun::details
 
 
     template<class Op, class T , class I, class RawResult,
-            class DecayedResult = std::remove_cvref<RawResult>>
+            class DecayedResult = std::remove_cvref_t<RawResult>>
     concept indirectlyLeftFoldable_impl =
             std::convertible_to<T, DecayedResult> &&
             std::convertible_to<RawResult, DecayedResult> &&
