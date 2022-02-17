@@ -13,7 +13,7 @@ namespace algofun
     template<std::input_iterator I, std::sentinel_for<I> S, class T,
              details::indirectlyLeftFoldable<T, I> Op,
              class R = std::invoke_result_t<Op&, T, std::iter_reference_t<I>>>
-    constexpr auto reduce(I first, S last, T&& init, Op op)->R
+    constexpr auto reduce_par(I first, S last, T&& init, Op op)->R
     {
 
         if(first == last)
