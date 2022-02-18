@@ -436,6 +436,9 @@ namespace algofun
         const auto result = fold_left(std::ranges::begin(vec1), std::ranges::end(vec1), 0.0, [](auto&& accum, const auto& elem) { return accum + elem;});
         std::printf("fold_left with int vec and double initial value : %f \n", result);
 
+        const auto result_range = fold_left(vec1, 0.0, [](auto&& accum, const auto& elem) { return accum + elem;});
+        std::printf("fold_left Ranges with int vec and double initial value : %f \n", result_range);
+
         std::vector vec2 ={1.0, 3.0, 4., 10., 10., 15., 20., 3.5};
         const auto result2 = fold_left(std::ranges::begin(vec2), std::ranges::end(vec2), 0, [](auto&& accum, const auto& elem) { return accum + elem;});
         std::printf("fold_left with double vec and int initial value : %f \n", result2);
@@ -446,10 +449,14 @@ namespace algofun
         const auto result3 = fold_left(std::ranges::begin(vec3), std::ranges::end(vec3), 0s, [](auto&& accum, const auto& elem) { return accum + elem;});
         std::printf("fold_left with chrono int and chrono int initial value : %lli\n", result3.count());
 
+        const auto result_range2 = fold_left(vec3, 0.0s, [](auto&& accum, const auto& elem) { return accum + elem;});
+        std::printf("fold_left Ranges with chrono int and chrono double initial value : %Lf\n", result_range2.count());
+
+//
         std::vector vec4 ={1.0s, 3.0s, 4.0s, 10.0s, 10.0s, 15.0s, 20.0s, 3.5s};
 
         const auto result4 = fold_left(std::ranges::begin(vec4), std::ranges::end(vec4), 0s, [](auto&& accum, const auto& elem) { return accum + elem;});
-        std::printf("fold_left with chrono double and chrono int initial value : %Lf\n", result4.count());
+        std::printf("fold_left Ranges with chrono double and chrono int initial value : %Lf\n", result4.count());
 
     }
 
