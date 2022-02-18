@@ -433,25 +433,44 @@ namespace algofun
     {
         std::puts("--foldleft_Test--");
         std::vector vec1 ={1, 3, 4, 10, 10, 15, 20, 3};
-        const auto result = fold_left(std::ranges::begin(vec1), std::ranges::end(vec1), 0, [](auto&& accum, const auto& elem) { return accum + elem;});
-        std::printf("fold_left with int vec and int initial value : %i \n", result);
+        const auto result = fold_left(std::ranges::begin(vec1), std::ranges::end(vec1), 0.0, [](auto&& accum, const auto& elem) { return accum + elem;});
+        std::printf("fold_left with int vec and double initial value : %f \n", result);
 
         std::vector vec2 ={1.0, 3.0, 4., 10., 10., 15., 20., 3.5};
-        const auto result2 = fold_left(std::ranges::begin(vec2), std::ranges::end(vec2), 0.0, [](auto&& accum, const auto& elem) { return accum + elem;});
+        const auto result2 = fold_left(std::ranges::begin(vec2), std::ranges::end(vec2), 0, [](auto&& accum, const auto& elem) { return accum + elem;});
         std::printf("fold_left with double vec and int initial value : %f \n", result2);
 
         using namespace std::chrono_literals;
         std::vector vec3 ={1s, 3s, 4s, 10s, 10s, 15s, 20s, 3s};
 
-        const auto result3 = fold_left(std::ranges::begin(vec3), std::ranges::end(vec3), 0.0s, [](auto&& accum, const auto& elem) { return accum + elem;});
-        std::printf("fold_left with chrono int and chrono double initial value : %Lf\n", result3.count());
+        const auto result3 = fold_left(std::ranges::begin(vec3), std::ranges::end(vec3), 0s, [](auto&& accum, const auto& elem) { return accum + elem;});
+        std::printf("fold_left with chrono int and chrono int initial value : %lli\n", result3.count());
 
-        std::vector vec4 ={1.0s, 3.0s, 4.0s, 10.0s, 10.0s, 15.0s, 20.0s, 3.0s};
+        std::vector vec4 ={1.0s, 3.0s, 4.0s, 10.0s, 10.0s, 15.0s, 20.0s, 3.5s};
 
         const auto result4 = fold_left(std::ranges::begin(vec4), std::ranges::end(vec4), 0s, [](auto&& accum, const auto& elem) { return accum + elem;});
         std::printf("fold_left with chrono double and chrono int initial value : %Lf\n", result4.count());
 
     }
+
+    void reducepar_Test()
+    {
+        std::puts("--reducepar_Test--");
+        std::vector vec1 ={1, 3, 4, 10, 10, 15, 20, 3};
+        const auto result5 = reduce_par(std::ranges::begin(vec1), std::ranges::end(vec1), 0, [](auto&& accum, const auto& elem) { return accum + elem;});
+        std::printf("reduce_par with int and double initial value : %i\n", result5);
+
+        using namespace std::chrono_literals;
+        std::vector vec2 ={1.0s, 3.0s, 4.0s, 10.0s, 10.0s, 15.0s, 20.0s, 3.5s};
+        const auto result2 = reduce_par(std::ranges::begin(vec2), std::ranges::end(vec2), 0s, [](auto&& accum, const auto& elem) { return accum + elem;});
+        std::printf("reduce_par with chrono double and chrono int initial value : %Lf\n", result2.count());
+
+    }
+
+
+
+
+
 
 
 

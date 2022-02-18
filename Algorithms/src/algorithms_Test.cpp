@@ -20,5 +20,6 @@ int main()
     algofun::accumlateN_ChronoDur_Test();
     algofun::accumulate_iterTest();
     algofun::foldleft_Test();
+    algofun::reducepar_Test();
 
 }

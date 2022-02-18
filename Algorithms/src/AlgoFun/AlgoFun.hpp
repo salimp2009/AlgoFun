@@ -27,7 +27,7 @@ namespace algofun
     void accumlateN_ChronoDur_Test();
     void accumulate_iterTest();
     void foldleft_Test();
-
+    void reducepar_Test();
 
 
         struct Person

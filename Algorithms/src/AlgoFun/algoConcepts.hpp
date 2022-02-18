@@ -42,10 +42,17 @@ namespace algofun::details
             binaryOperation<R, Op, T, U> && binaryOperation<R, Op, U, T>;
 
 
-
-
-
 } // endof namespace algofun::details
+
+namespace algofun
+{
+    template<class R, class Op, class T, class U>
+    concept semigroup =
+            details::magma<R, Op, T, U> &&
+            details::magma<R, Op, T, std::invoke_result_t<Op&, T, U>> &&
+            details::magma<R, Op, std::invoke_result_t<Op&, T, U>, U>;
+
+} // end of namespace algofun
 
 
 #endif //ALGOFUN_ALGOCONCEPTS_HPP

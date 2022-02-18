@@ -18,7 +18,7 @@ namespace algofun
     {
         if(first == last)
         {
-            return {std::move(init)};
+            return (std::move(init));
         }
 
         auto accum = std::invoke(std::forward<Op>(op), std::move(init), *first);
