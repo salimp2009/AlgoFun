@@ -15,10 +15,12 @@ namespace algofun
     /// @warning    std::predicate<T, U> requirement std::boolean_testable did not work std::chrono::duration
     /// @warning    therefore switched from std::predicate to std::regular_invocable
 
-
+    // FIXME: change std::invocable with
+    //  template<class Op, class T , class I >
+    //  concept indirectlyLeftFoldable inside the algoConcepts.hpp
     template<std::ranges::input_range Range, details::unsignedType Size, typename T, class Proj=std::identity,
             std::invocable<T, typename std::projected<std::ranges::iterator_t<Range>, Proj>::value_type> BinaryOp=std::plus<>>
-    inline constexpr auto accumulate_n(Range&& range, Size&& n, T&& init=T{}, BinaryOp op={}, Proj&& proj={} )-> std::pair<T, std::ranges::iterator_t<Range>>
+    inline constexpr auto accumulate_n(Range&& range, Size&& n, T&& init=T{}, BinaryOp op={}, Proj proj={} )-> std::pair<T, std::ranges::iterator_t<Range>>
     {
         auto first = std::ranges::begin(range);
         if(n==0) return {std::forward<T>(init), first};
