@@ -14,6 +14,7 @@
 #include "fold_left.hpp"
 #include "reduce_par.hpp"
 #include "stable_partitionPos.hpp"
+#include "stable_partitionUserBuffer.hpp"
 
 
 
@@ -471,6 +472,7 @@ namespace algofun
         std::vector vec2 ={1.0s, 3.0s, 4.0s, 10.0s, 10.0s, 15.0s, 20.0s, 3.5s};
         const auto result2 = reduce_par(std::ranges::begin(vec2), std::ranges::end(vec2), 0s, [](auto&& accum, const auto& elem) { return accum + elem;});
         std::printf("reduce_par with chrono double and chrono int initial value : %Lf\n", result2.count());
+        //std::ranges::stable_partition()
 
     }
 
