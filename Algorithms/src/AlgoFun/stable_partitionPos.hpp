@@ -30,27 +30,21 @@ namespace algofun::details
 namespace algofun
 {
 
-    template<typename InputIterator, typename Predicate, typename Distance>
-    constexpr InputIterator
-    find_if_not_nSP(InputIterator first, Distance& len, Predicate pred)
+    template<std::input_iterator InputIterator, typename Proj, typename Predicate, typename Distance>
+
+    constexpr auto  find_if_not_nSP(InputIterator first, Distance& len, Predicate pred, Proj proj) ->InputIterator
     {
         for (; len; --len,  (void) ++first)
-            if (!__pred(first))
+            if (!std::invoke(pred, std::invoke(proj, first)))
                 break;
         return first;
     }
 
-    template<typename ForwardIterator, typename Pointer, typename Predicate,
-             typename Distance>
-    ForwardIterator
-    stablePartitionAdaptiveSp(ForwardIterator first,
-                                ForwardIterator last,
-                                Predicate pred, Distance len,
-                                Pointer buffer,
-                                Distance bufferSize)
+    template<std::forward_iterator ForwardIterator, typename Pointer, typename Proj, typename Predicate, typename Distance>
+    constexpr auto stablePartitionAdaptiveSp(ForwardIterator first, ForwardIterator last, Predicate pred, Proj proj,
+                                             Distance len, Pointer buffer, Distance bufferSize) ->ForwardIterator
     {
-        if (len == 1)
-            return first;
+        if (len == 1) return first;
 
         if (len <= bufferSize)
         {
@@ -64,7 +58,7 @@ namespace algofun
             ++result2;
             ++first;
             for (; first != last; ++first)
-                if (pred(first))
+                if (std::invoke(pred, std::invoke(proj, first)))
                 {
                     *result1 = std::move(*first);
                     ++result1;
@@ -81,82 +75,63 @@ namespace algofun
 
         ForwardIterator middle = first;
         std::advance(middle, len / 2);
-        ForwardIterator leftSplit =
-                stablePartitionAdaptiveSp(first, middle, pred,
-                                          len / 2, buffer,
-                                          bufferSize);
+        ForwardIterator leftSplit = stablePartitionAdaptiveSp(first, middle, pred, proj, len / 2, buffer, bufferSize);
 
         // Advance past true-predicate values to satisfy this
         // function's preconditions.
         Distance rightLen = len - len / 2;
-        ForwardIterator rightSplit =
-
-                find_if_not_nSP(middle, rightLen, pred);
+        ForwardIterator rightSplit = find_if_not_nSP(middle, rightLen, pred, proj);
 
         if (rightLen)
-            rightSplit =
-                    std::__stable_partition_adaptive(rightSplit, last, pred,
-                                                     rightLen,
-                                                     buffer, bufferSize);
+        {
+            rightSplit = stablePartitionAdaptiveSp(rightSplit, last, pred,proj, rightLen, buffer, bufferSize);
+        }
 
         return std::rotate(leftSplit, middle, rightSplit);
     }
 
-    template<typename ForwardIterator, typename Predicate>
-    ForwardIterator
-    stablePartitionSp(ForwardIterator first, ForwardIterator last,
-                       Predicate pred)
+    template<std::forward_iterator ForwardIterator, typename Proj = std::identity,
+            std::indirect_unary_predicate<std::projected<ForwardIterator, Proj>> Pred>
+    constexpr auto stablePartitionSp(ForwardIterator first, ForwardIterator last, Pred pred, Proj proj={}) ->ForwardIterator
     {
-        first = std::ranges::find_if_not(first, last, pred);
+        first = std::ranges::find_if_not(first, last, pred, proj);
 
-        if (first == last)
-            return first;
+        if (first == last) { return first; }
 
-//        typedef typename std::iterator_traits<ForwardIterator>::value_type
-//                value_type;
-        typedef typename std::iterator_traits<ForwardIterator>::difference_type
-                distanceType;
+        using distanceType = typename std::iterator_traits<ForwardIterator>::difference_type;
 
-//        _Temporary_buffer<ForwardIterator, value_type>
-//                buf(first, std::distance(first, last));
-        std::array<std::iter_reference_t<ForwardIterator>, std::distance(first, last)> buf;
-        return stablePartitionAdaptiveSp(first, last, pred,
-                                         distanceType(buf.requested_size()),
-                                         buf.begin(),
-                                         distanceType(buf.size()));
+        std::array<std::iter_value_t<ForwardIterator>, std::distance(first, last)> buf;
+        return stablePartitionAdaptiveSp(first, last, pred, proj,
+                                         distanceType(std::size(buf)),
+                                         std::begin(buf),
+                                         distanceType(std::size(buf)));
     }
-
 
 
     struct stable_partitionSP
     {
-            template<std::bidirectional_iterator It, std::sentinel_for<It> Sent,
-                     typename Proj = std::identity,
+            template<std::bidirectional_iterator It, std::sentinel_for<It> Sent, typename Proj = std::identity,
                      std::indirect_unary_predicate<std::projected<It, Proj>> Pred>
             requires std::permutable<It>
-                    std::ranges::subrange<It>
-            operator()(It first, Sent last,
-                       Pred pred, Proj proj = {}) const
+            constexpr auto  operator()(It first, Sent last, Pred pred, Proj proj = {}) const ->std::ranges::subrange<It>
             {
                 auto lasti = std::ranges::next(first, last);
-                auto middle = stablePartitionSp(std::move(first), lasti,
-                                                std::invoke(pred, proj));
+                auto middle = stablePartitionSp(std::move(first), lasti, std::move(pred), std::move(proj));
                 return {std::move(middle), std::move(lasti)};
             }
 
-//            template<std::ranges::bidirectional_range _Range, typename _Proj = std::identity,
-//                     std::indirect_unary_predicate<std::projected<std::ranges::iterator_t<_Range>, _Proj>>
-//                             _Pred>
-//            requires std::permutable<std::ranges::iterator_t<_Range>>
-//                    borrowed_subrange_t<_Range>
-//            operator()(_Range&& __r, _Pred __pred, _Proj __proj = {}) const
-//            {
-//                return (*this)(std::ranges::begin(__r), std::ranges::end(__r),
-//                               std::move(__pred), std::move(__proj));
-//            }
+
+            template<std::ranges::bidirectional_range Range, typename Proj = std::identity,
+                     std::indirect_unary_predicate<std::projected<std::ranges::iterator_t<Range>, Proj>> Pred>
+            requires std::permutable<std::ranges::iterator_t<Range>>
+
+            constexpr auto operator()(Range &&r, Pred pred, Proj proj = {}) const ->std::ranges::borrowed_subrange_t<Range>
+            {
+                return (*this)(std::ranges::begin(r), std::ranges::end(r), std::move(pred), std::move(proj));
+            }
     };
 
-//    inline constexpr stable_partition_SP stable_partition{};
+    inline constexpr stable_partitionSP stable_partition{};
 
 
 
