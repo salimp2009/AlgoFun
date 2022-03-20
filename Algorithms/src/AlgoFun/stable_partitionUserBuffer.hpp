@@ -7,7 +7,8 @@
 
 
 // FIXME: This is only for learning stable_partition from GCCs implementation
-//  converted to use as stable_partitionPosition; similar one used for stablePartionBuffer
+//  converted to use as stable_partitionBuffer; with && without user defined Buffer
+//  to be used to temporarily move unselected items
 
 namespace algofun
 {
@@ -119,6 +120,33 @@ namespace algofun
         {
             return (*this)(std::ranges::begin(r), std::ranges::end(r), std::move(pred), std::move(proj));
         }
+
+        // FIXME: this is user defined Buffer Implementation
+        template<std::bidirectional_iterator It, std::sentinel_for<It> Sent, typename Proj = std::identity, typename BufferIt,
+                 std::indirect_unary_predicate<std::projected<It, Proj>> Pred>
+        requires std::permutable<It> &&
+                std::constructible_from<std::iter_value_t<BufferIt>, std::projected<It, Proj>>
+        constexpr auto  operator()(It first, Sent last, BufferIt buffBeg, std::ptrdiff_t bufSize, Pred pred, Proj proj = {}) const ->std::ranges::subrange<It>
+        {
+            auto lasti = std::ranges::next(first, last);
+            auto middle = stable_partitionBuff(std::move(first), lasti, std::move(pred), std::move(proj));
+            return {std::move(middle), std::move(lasti)};
+        }
+
+        // FIXME: this is user defined buffer version but not sure if requires clause for Buffer is right
+        //  cause user can pass buffer of std::array<char, someSize>;
+        //  the type of buffer and Range type does not neccessarily to match as long the size of Buffer is enough
+        //  but this buffer is used to temporarily to move the unselected types so it has to match
+        template<std::ranges::bidirectional_range Range, typename Proj = std::identity, typename Buffer,
+                 std::indirect_unary_predicate<std::projected<std::ranges::iterator_t<Range>, Proj>> Pred>
+        requires std::permutable<std::ranges::iterator_t<Range>> &&
+                 std::constructible_from<Buffer, std::projected<std::ranges::iterator_t<Range>, Proj>>
+        constexpr auto operator()(Range &&r, Buffer&& buff, Pred pred,  Proj proj = {}) const ->std::ranges::borrowed_subrange_t<Range>
+        {
+            return (*this)(std::ranges::begin(r), std::ranges::end(r), std::ranges::begin(buff), std::ranges::size(buff),
+                           std::move(pred), std::move(proj));
+        }
+
     };
 
     inline constexpr stable_partitionBuffer stable_partitionBuffer{};
