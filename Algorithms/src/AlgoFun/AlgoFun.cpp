@@ -473,15 +473,29 @@ namespace algofun
         const auto result2 = reduce_par(std::ranges::begin(vec2), std::ranges::end(vec2), 0s, [](auto&& accum, const auto& elem) { return accum + elem;});
         std::printf("reduce_par with chrono double and chrono int initial value : %Lf\n", result2.count());
         //std::ranges::stable_partition()
-
     }
 
+    void stablePartitionBuffer_Test()
+    {
+        std::puts("--stablePartitionBuffer_Test--");
+        std::vector vec1{3,5,6,7,8,9,15};
+        auto even = [](const auto & elem) { return elem %2 ==0;};
+        std::ranges::stable_partition(vec1, even);
+        for(const auto& elem:vec1)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
 
+        std::vector vec2{3,5,6,7,8,9,15};
+        stable_partitionBuffer(vec2, even);
+        for(const auto& elem:vec2)
+        {
+            std::printf("%i ", elem);
+        }
+        std::puts("");
 
-
-
-
-
+    }
 
 }// end of namespace
 

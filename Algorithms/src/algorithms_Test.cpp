@@ -21,5 +21,6 @@ int main()
     algofun::accumulate_iterTest();
     algofun::foldleft_Test();
     algofun::reducepar_Test();
+    algofun::stablePartitionBuffer_Test();
 
 }

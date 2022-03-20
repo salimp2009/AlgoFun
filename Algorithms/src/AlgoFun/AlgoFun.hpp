@@ -28,6 +28,7 @@ namespace algofun
     void accumulate_iterTest();
     void foldleft_Test();
     void reducepar_Test();
+    void stablePartitionBuffer_Test();
 
 
         struct Person

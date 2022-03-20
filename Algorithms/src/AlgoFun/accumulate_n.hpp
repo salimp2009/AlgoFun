@@ -12,9 +12,6 @@
 namespace algofun
 {
 
-    /// @warning    std::predicate<T, U> requirement std::boolean_testable did not work std::chrono::duration
-    /// @warning    therefore switched from std::predicate to std::regular_invocable
-
     // FIXME: change std::invocable with
     //  template<class Op, class T , class I >
     //  concept indirectlyLeftFoldable inside the algoConcepts.hpp

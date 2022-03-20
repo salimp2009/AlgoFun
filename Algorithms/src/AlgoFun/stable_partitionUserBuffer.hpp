@@ -12,6 +12,7 @@
 namespace algofun
 {
 
+
     template<std::input_iterator InputIterator, typename Proj, typename Predicate, typename Distance>
 
     constexpr auto  find_if_not_nBuff(InputIterator first, Distance& len, Predicate pred, Proj proj) ->InputIterator
@@ -83,8 +84,15 @@ namespace algofun
         using distanceType = typename std::iterator_traits<ForwardIterator>::difference_type;
 
         // FIXME: this is temporary; we will use the buffer passed by User
-        std::array<std::iter_value_t<ForwardIterator>, std::distance(first, last)> buf;
-        auto requestedSize = std::distance(first, last);
+        //  but keep requestedSize since adaptive implementation uses it
+        const auto requestedSize = std::distance(first, last);
+        std::vector<std::iter_value_t<ForwardIterator>> buf(requestedSize);
+
+        // FIXME: find a way to make the size compiletime
+        //  so we can use this as a fallback if user does not provide buffer
+        //  worst case use the std::vector or make a pmr solution ?
+        //std::array<std::iter_value_t<ForwardIterator>, arraySize> bufArr{};
+
         return stablePartitionAdaptiveBuff(first, last, pred, proj,
                                          distanceType(requestedSize),
                                          std::begin(buf),
@@ -107,7 +115,6 @@ namespace algofun
         template<std::ranges::bidirectional_range Range, typename Proj = std::identity,
                  std::indirect_unary_predicate<std::projected<std::ranges::iterator_t<Range>, Proj>> Pred>
         requires std::permutable<std::ranges::iterator_t<Range>>
-
         constexpr auto operator()(Range &&r, Pred pred, Proj proj = {}) const ->std::ranges::borrowed_subrange_t<Range>
         {
             return (*this)(std::ranges::begin(r), std::ranges::end(r), std::move(pred), std::move(proj));
