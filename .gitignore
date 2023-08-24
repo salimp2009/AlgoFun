@@ -12,6 +12,7 @@
 cmake-build-debug
 cmake-build-release
 cmake-build-*
+CMakeFiles
 #typical Cmake build
 build
 #vs cmake builds

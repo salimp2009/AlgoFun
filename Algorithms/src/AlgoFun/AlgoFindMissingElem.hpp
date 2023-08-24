@@ -5,11 +5,10 @@
 #ifndef ALGOFUN_ALGOFINDMISSINGELEM_HPP
 #define ALGOFUN_ALGOFINDMISSINGELEM_HPP
 
-#include "algorithmsPCH.hpp"
+#include "../algorithmsPCH.hpp"
 
 
-namespace algofun
-{
+namespace algofun {
 
     // linear time; n+n/2 +n/4..
     // in place
@@ -29,55 +28,43 @@ namespace algofun
     /// @returns type T min absent value in the given range
     /// @complexity at most N applications;
     /// @swaps  at most N/2 swaps if I models ranges::bidirectional_iterator, and at most N swaps otherwise
-    template<std::forward_iterator It, typename T=std::iter_value_t<It>>
-    constexpr auto min_absent(It first, It last, T value=T{})
-    {
-      using diff_t = decltype(value-value);
-      while(last!=first)
-      {
-          const auto half =(std::distance(first,last)+1)/ 2 ;
-          const T m = static_cast<diff_t>(half) + value;
-          const auto p = std::partition(first, last, [&](auto elem) { return elem < m;} );
-          if ( p == std::next(first, half))
-          {
-             first = p;
-             value = m;
-          }
-          else
-          {
-              last =p;
-          }
-      }
-       return value;
+    template<std::forward_iterator It, typename T = std::iter_value_t<It>>
+    constexpr auto min_absent(It first, It last, T value = T{}) {
+        using diff_t = decltype(value - value);
+        while (last != first) {
+            const auto half = (std::distance(first, last) + 1) / 2;
+            const T m = static_cast<diff_t>(half) + value;
+            const auto p = std::partition(first, last, [&](auto elem) { return elem < m; });
+            if (p == std::next(first, half)) {
+                first = p;
+                value = m;
+            } else {
+                last = p;
+            }
+        }
+        return value;
     }
 
     // similar to original version but used std::nth_element instead std::partition;
     // this version is said to be slower;needs to be tested
-    template<std::forward_iterator It, typename T=std::iter_value_t<It>>
-    constexpr auto min_absent2(It first, It last, T value=T{})
-    {
-        using diff_t = decltype(value-value);
-        while(first!=last)
-        {
-            const auto half =std::distance(first,last)/ 2 ;
-            const auto mid =std::next(first, half);
+    template<std::forward_iterator It, typename T = std::iter_value_t<It>>
+    constexpr auto min_absent2(It first, It last, T value = T{}) {
+        using diff_t = decltype(value - value);
+        while (first != last) {
+            const auto half = std::distance(first, last) / 2;
+            const auto mid = std::next(first, half);
             std::nth_element(first, mid, last);
-            if ( *mid == value + static_cast<diff_t>(half))
-            {
+            if (*mid == value + static_cast<diff_t>(half)) {
                 value = *mid + static_cast<diff_t>(1);
                 first = std::next(mid);
-            }
-            else
-            {
-                last =mid;
+            } else {
+                last = mid;
             }
         }
         return value;
     }
 
 
+}// namespace algofun
 
-
-} // end of namespace
-
-#endif //ALGOFUN_ALGOFINDMISSINGELEM_HPP
+#endif//ALGOFUN_ALGOFINDMISSINGELEM_HPP

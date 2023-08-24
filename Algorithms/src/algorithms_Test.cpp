@@ -2,8 +2,7 @@
 #include "AlgoFun/AlgoFun.hpp"
 
 
-int main()
-{
+int main() {
     algofun::AlgoFun_Test();
     algofun::minabsent_Tests();
     algofun::minabsentVersion2_Tests();
@@ -22,5 +21,4 @@ int main()
     algofun::foldleft_Test();
     algofun::reducepar_Test();
     algofun::stablePartitionBuffer_Test();
-
 }

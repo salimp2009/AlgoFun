@@ -5,102 +5,105 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    set(IS_GNU On)
-    add_definitions(-DIS_GCC=true)
+  set(IS_GNU On)
+  add_definitions(-DIS_GCC=true)
 else()
-    set(IS_GNU Off)
-    add_definitions(-DIS_GCC=false)
+  set(IS_GNU Off)
+  add_definitions(-DIS_GCC=false)
 endif()
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
-    set(IS_CLANG On)
-    add_definitions(-DIS_CLANG=true)
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}"
+                                                  STREQUAL "AppleClang")
+  set(IS_CLANG On)
+  add_definitions(-DIS_CLANG=true)
 else()
-    set(IS_CLANG Off)
-    add_definitions(-DIS_CLANG=false)
+  set(IS_CLANG Off)
+  add_definitions(-DIS_CLANG=false)
 endif()
 
 if(MSVC)
-    add_definitions(-DIS_MSVC=true)
-    #add_definitions(/WX)
-    add_definitions(/W3)
-    add_definitions(/wd4189)
-    add_definitions(/wd4100)
-    add_definitions(/wd4996) # 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS.
-    add_definitions(/wd4267)
-    add_definitions(/wd4505)
-    #add_definitions(/await) # enable coroutine support
+  add_definitions(-DIS_MSVC=true)
+  # add_definitions(/WX)
+  add_definitions(/W3)
+  add_definitions(/wd4189)
+  add_definitions(/wd4100)
+  add_definitions(
+    /wd4996) # 'fopen': This function or variable may be unsafe. Consider using
+             # fopen_s instead. To disable deprecation, use
+             # _CRT_SECURE_NO_WARNINGS.
+  add_definitions(/wd4267)
+  add_definitions(/wd4505)
+  # add_definitions(/await) # enable coroutine support
 
-    # Use sane and nice C++ for MSVC.
-    # This makes alternative tokens (not, and, ...) as actual keywords and
-    # enables more conformant C++ in general
-    add_definitions(/permissive-)
-    #add_definitions(/std:c++latest)
+  # Use sane and nice C++ for MSVC. This makes alternative tokens (not, and,
+  # ...) as actual keywords and enables more conformant C++ in general
+  add_definitions(/permissive-)
+  # add_definitions(/std:c++latest)
 
 else()
-    add_definitions(-DIS_MSVC=false)
-    #add_definitions(-Werror)
-    add_definitions(-Wall)
-    add_definitions(-Wextra)
-    add_definitions(-Wold-style-cast)
-    add_definitions(-Wno-unused-variable)
-    add_definitions(-Wno-unused-parameter)
-    add_definitions(-Wno-unused-value)
-    add_definitions(-Wno-cpp)
-    add_definitions(-Wconversion)
-    #add_definitions(-Wpessimizing-move)
+  add_definitions(-DIS_MSVC=false)
+  # add_definitions(-Werror)
+  add_definitions(-Wall)
+  add_definitions(-Wextra)
+  add_definitions(-Wold-style-cast)
+  add_definitions(-Wno-unused-variable)
+  add_definitions(-Wno-unused-parameter)
+  add_definitions(-Wno-unused-value)
+  add_definitions(-Wno-cpp)
+  add_definitions(-Wconversion)
+  # add_definitions(-Wpessimizing-move)
 
-    if(IS_GNU)
+  if(IS_GNU)
     add_definitions(-Wmisleading-indentation)
     add_definitions(-Wduplicated-cond)
     add_definitions(-Wduplicated-branches)
-    add_definitions(-Wlogical-op)  # warn about logical operations being used where bitwise were probably wanted
-    add_definitions(-Wuseless-cast) # warn if you perform a cast to the same type
+    add_definitions(-Wlogical-op) # warn about logical operations being used
+                                  # where bitwise were probably wanted
+    add_definitions(-Wuseless-cast) # warn if you perform a cast to the same
+                                    # type
     add_definitions(-Wpessimizing-move)
-    endif()
+    add_definitions(-fcoroutines) # required for GCC-10
+  endif()
 
-    if(IS_CLANG)
-        add_definitions(-Wall)
-        add_definitions(-Wno-unused-private-field)
-        add_definitions(-Wno-unneeded-internal-declaration)
+  if(IS_CLANG)
+    add_definitions(-Wall)
+    add_definitions(-Wno-unused-private-field)
+    add_definitions(-Wno-unneeded-internal-declaration)
 
-    else()
-        add_definitions(-fcoroutines) # required for GCC-10
-        add_definitions(-fpermissive) # to relax typename requirement
+  else()
+    add_definitions(-fcoroutines) # required for GCC-10
+    add_definitions(-fpermissive) # to relax typename requirement
 
-    endif()
+  endif()
 endif()
 
-#added to use precompiled headers
+# added to use precompiled headers
 add_library(algorithmsPCH INTERFACE)
-target_precompile_headers(algorithmsPCH INTERFACE
-        [["algorithmsPCH.hpp"]]
-        )
+target_precompile_headers(algorithmsPCH INTERFACE [["algorithmsPCH.hpp"]])
 
-target_include_directories(algorithmsPCH  INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>
-        )
+target_include_directories(
+  algorithmsPCH INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>)
 
-
-add_library(algoFunLib
-        src/AlgoFun/AlgoFindMissingElem.hpp
-        src/AlgoFun/AlgoFun.cpp
-        src/AlgoFun/AlgoFun.hpp
-        src/AlgoFun/SlideAlgorithm.hpp
-        src/AlgoFun/GatherAlgorithm.hpp
-        src/AlgoFun/StablePartitionPosition.hpp
-        src/AlgoFun/SortSubRange.hpp
-        src/AlgoFun/SortSubRange.cpp
-        src/AlgoFun/accumulate_n.hpp
-        src/AlgoFun/accumulate_iter.hpp
-        src/AlgoFun/algoConcepts.hpp
-        src/AlgoFun/fold_left.hpp
-        src/AlgoFun/reduce_par.hpp
-        src/AlgoFun/stable_partitionPos.hpp src/AlgoFun/stable_partitionUserBuffer.hpp)
+add_library(
+  algoFunLib
+  src/AlgoFun/AlgoFindMissingElem.hpp
+  src/AlgoFun/AlgoFun.cpp
+  src/AlgoFun/AlgoFun.hpp
+  src/AlgoFun/SlideAlgorithm.hpp
+  src/AlgoFun/GatherAlgorithm.hpp
+  src/AlgoFun/StablePartitionPosition.hpp
+  src/AlgoFun/SortSubRange.hpp
+  src/AlgoFun/SortSubRange.cpp
+  src/AlgoFun/accumulate_n.hpp
+  src/AlgoFun/accumulate_iter.hpp
+  src/AlgoFun/algoConcepts.hpp
+  src/AlgoFun/fold_left.hpp
+  src/AlgoFun/reduce_par.hpp
+  src/AlgoFun/stable_partitionPos.hpp
+  src/AlgoFun/stable_partitionUserBuffer.hpp)
 
 target_include_directories(algoFunLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 target_link_libraries(algoFunLib PRIVATE algorithmsPCH)
 
-add_executable (AlgoFun src/algorithms_Test.cpp)
+add_executable(AlgoFun src/algorithms_Test.cpp)
 target_link_libraries(AlgoFun PRIVATE project_options algoFunLib)
-

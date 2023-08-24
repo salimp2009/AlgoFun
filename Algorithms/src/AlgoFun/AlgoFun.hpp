@@ -5,12 +5,11 @@
 #ifndef ALGOFUN_ALGOFUN_HPP
 #define ALGOFUN_ALGOFUN_HPP
 
-#include "algorithmsPCH.hpp"
+#include "../algorithmsPCH.hpp"
 #include "SortSubRange.hpp"
 
 
-namespace algofun
-{
+namespace algofun {
     void AlgoFun_Test();
     void minabsent_Tests();
     void minabsentVersion2_Tests();
@@ -31,15 +30,12 @@ namespace algofun
     void stablePartitionBuffer_Test();
 
 
-        struct Person
-        {
-            std::string name{};
-            int  confID{};
-
-        };
+    struct Person {
+        std::string name{};
+        int confID{};
+    };
 
 
+}// namespace algofun
 
-} // end of namespace
-
-#endif //ALGOFUN_ALGOFUN_HPP
+#endif//ALGOFUN_ALGOFUN_HPP
