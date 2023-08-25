@@ -62,13 +62,14 @@ else()
     add_definitions(-Wuseless-cast) # warn if you perform a cast to the same
                                     # type
     add_definitions(-Wpessimizing-move)
-    add_definitions(-fcoroutines) # required for GCC-10
+    # add_definitions(-fcoroutines) # required for GCC-10
   endif()
 
   if(IS_CLANG)
     add_definitions(-Wall)
     add_definitions(-Wno-unused-private-field)
     add_definitions(-Wno-unneeded-internal-declaration)
+    add_definitions(-fcoroutines-ts)
 
   else()
     add_definitions(-fcoroutines) # required for GCC-10

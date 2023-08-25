@@ -15,5 +15,6 @@ cmake-build-*
 CMakeFiles
 #typical Cmake build
 build
+.cache
 #vs cmake builds
 out

@@ -1,6 +1,4 @@
-
 #include "AlgoFun/AlgoFun.hpp"
-
 
 int main() {
     algofun::AlgoFun_Test();
