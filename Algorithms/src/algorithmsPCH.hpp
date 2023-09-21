@@ -13,6 +13,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <deque>
+#include <functional>
 #include <iostream>
 #include <list>
 #include <memory>
@@ -25,5 +26,4 @@
 #include <utility>
 #include <variant>
 #include <vector>
-
 #endif//METAFUN_METAFUNCTIONSPCH_HPP

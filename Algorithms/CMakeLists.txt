@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.21)
 project(Algorithms)
 
+add_compile_options(-O1 -g #[[ -fsanitize=address -fno-omit-frame-pointer ]])
+add_link_options(-g #[[ -fsanitize=address ]])
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 

@@ -61,13 +61,13 @@ namespace algofun {
         std::vector<std::chrono::seconds> vec1 = {0s, 1s, 3s, 2s, 5s};
         auto result1 = min_absent2(vec1.begin(), vec1.end());
         assert(result1 == 4s);
-        std::printf("result1: %lld s \n", result1.count());
+        std::printf("result1: %ld s \n", result1.count());
 
         using T = std::chrono::time_point<std::chrono::system_clock, std::chrono::seconds>;
         std::vector vec2 = {T{0s}, T{1s}, T{3s}, T{2s}, T{5s}};
         auto result2 = min_absent2(vec2.begin(), vec2.end());
         assert(result2 == T{4s});
-        std::printf("result2: %lld s \n", result2.time_since_epoch().count());
+        std::printf("result2: %ld s \n", result2.time_since_epoch().count());
 
 
         // same as above but a new type in C++20
@@ -115,7 +115,7 @@ namespace algofun {
         auto result = slide(first, last, position);
         std::printf("slide: new_begin: %i, new_end: %i \n", *(result.first), *(result.second - 1));
 
-        std::printf("slide: new_begin_dist: %lli, new_end_dist: %lli \n", std::distance(vec1.begin(), result.first) + 1, std::distance(vec1.begin(), result.second));
+        std::printf("slide: new_begin_dist: %ti, new_end_dist: %ti \n", std::distance(vec1.begin(), result.first) + 1, std::distance(vec1.begin(), result.second));
 
         std::printf("after slide: ");
         for (auto elem: vec1) {
@@ -236,7 +236,7 @@ namespace algofun {
         const auto gatherBegin = std::ranges::distance(vec1.begin(), result1.first);
         const auto gatherEnd = std::ranges::distance(vec1.begin(), result1.second);
 
-        std::printf("gather pos begin: %lli, gather pos end: %lli \n", gatherBegin, gatherEnd);
+        std::printf("gather pos begin: %ti, gather pos end: %ti \n", gatherBegin, gatherEnd);
         std::puts("");
 
         // Test if the position == vec1.begin()
@@ -271,7 +271,7 @@ namespace algofun {
         const auto gatherBegin = std::ranges::distance(vec1.begin(), result2.begin());
         const auto gatherEnd = std::ranges::distance(vec1.begin(), result2.end());
 
-        std::printf("gather pos begin: %lli, gather pos end: %lli \n", gatherBegin, gatherEnd);
+        std::printf("gather pos begin: %ti, gather pos end: %ti \n", gatherBegin, gatherEnd);
         std::puts("");
 
         std::vector<Person> vec2 = {{"Sean", 1}, {"Salim", 9}, {"Didem", 52}, {"Ben", 2}, {"Kim", 8}};
@@ -335,7 +335,7 @@ namespace algofun {
         std::vector vec1 = {1, 3, 4, 10, 10, 15, 20, 35};
 
         const auto [sum0, position0] = accumulate_n(std::begin(vec1), std::end(vec1), 15u, 0, [](const auto &init, const auto &elem) { return init + elem; });
-        std::printf("sum0: %i, Counted upto: %lli \n", sum0, std::distance(vec1.begin(), position0) + 1);
+        std::printf("sum0: %i, Counted upto: %ti \n", sum0, std::distance(vec1.begin(), position0) + 1);
 
         // NOTE: red squiggles showing wrong error due to clang-tidy/clang is behind C++20
         int sum2 = 0;
@@ -345,11 +345,11 @@ namespace algofun {
         std::printf("sum2: %i \n", sum2);
 
         const auto [sum1, position1] = accumulate_n(vec1, 15u, 0, [](auto init, const auto &elem) { return init + elem; });
-        std::printf("ranges version: sum1: %i, Counted upto: %lli \n", sum1, std::distance(vec1.begin(), position1) + 1);
+        std::printf("ranges version: sum1: %i, Counted upto: %ti \n", sum1, std::distance(vec1.begin(), position1) + 1);
         std::puts("");
 
         const auto [sum3, position3] = accumulate_n(vec1.begin(), vec1.end(), 4u);
-        std::printf("default predicate + default initial version: sum3: %i, Counted upto: %lli \n", sum3, std::distance(vec1.begin(), position3) + 1);
+        std::printf("default predicate + default initial version: sum3: %i, Counted upto: %ti \n", sum3, std::distance(vec1.begin(), position3) + 1);
         std::puts("");
     }
 
@@ -361,21 +361,21 @@ namespace algofun {
         std::vector vec1 = {1s, 3s, 4s, 10s, 10s, 15s, 20s, 35s};
         std::printf("originaldurations(seconds): ");
         for (const auto &elem: vec1) {
-            std::printf(" -> %lli sec ", elem.count());
+            std::printf(" -> %li sec ", elem.count());
         }
 
         std::puts(" ");
 
         const auto [sum1, position1] = accumulate_n(std::cbegin(vec1), std::cend(vec1), 4u, 0s, [](auto &&init, const auto &elem) { return init + elem; });
-        std::printf("\nduration version: sum1: %lli, Counted upto: %lli \n", sum1.count(), std::distance(vec1.cbegin(), position1) + 1);
+        std::printf("\nduration version: sum1: %li, Counted upto: %ti \n", sum1.count(), std::distance(vec1.cbegin(), position1) + 1);
         std::puts("");
 
         const auto [sum2, position2] = accumulate_n(std::cbegin(vec1), std::cend(vec1), 4u);
-        std::printf("duration with default plus<>: sum2: %lli, Counted upto: %lli \n", sum2.count(), std::distance(vec1.cbegin(), position2) + 1);
+        std::printf("duration with default plus<>: sum2: %li, Counted upto: %ti \n", sum2.count(), std::distance(vec1.cbegin(), position2) + 1);
         std::puts("");
 
         const auto [sum3, position3] = accumulate_n(vec1, 15u, 0s, [](auto &&init, const auto &elem) { return std::move(init + elem); });
-        std::printf("ranges duration version: sum3: %lli, Counted upto: %lli \n", sum3.count(), std::distance(vec1.begin(), position3) + 1);
+        std::printf("ranges duration version: sum3: %li, Counted upto: %ti \n", sum3.count(), std::distance(vec1.begin(), position3) + 1);
     }
 
 
@@ -388,7 +388,7 @@ namespace algofun {
         using namespace std::chrono_literals;
         std::vector vec2 = {1s, 3s, 4s, 10s, 10s, 15s, 20s, 3s};
         auto sum2 = accumulate_iter(vec2, 0s, [](auto &&init, auto currentIter) { return init + *currentIter; });
-        std::printf("accumulate_iter with chrono dur: [expected: 66]: %lli \n", sum2.count());
+        std::printf("accumulate_iter with chrono dur: [expected: 66]: %li \n", sum2.count());
 
         std::puts("--Tests Passed--");
     }
@@ -410,7 +410,7 @@ namespace algofun {
         std::vector vec3 = {1s, 3s, 4s, 10s, 10s, 15s, 20s, 3s};
 
         const auto result3 = fold_left(std::ranges::begin(vec3), std::ranges::end(vec3), 0s, [](auto &&accum, const auto &elem) { return accum + elem; });
-        std::printf("fold_left with chrono int and chrono int initial value : %lli\n", result3.count());
+        std::printf("fold_left with chrono int and chrono int initial value : %li\n", result3.count());
 
         const auto result_range2 = fold_left(vec3, 0.0s, [](auto &&accum, const auto &elem) { return accum + elem; });
         std::printf("fold_left Ranges with chrono int and chrono double initial value : %Lf\n", result_range2.count());
