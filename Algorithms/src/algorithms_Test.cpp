@@ -1,4 +1,5 @@
 #include "AlgoFun/AlgoFun.hpp"
+#include <functional>
 
 int main() {
     algofun::AlgoFun_Test();
@@ -19,4 +20,5 @@ int main() {
     algofun::foldleft_Test();
     algofun::reducepar_Test();
     algofun::stablePartitionBuffer_Test();
+    //
 }

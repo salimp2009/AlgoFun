@@ -8,7 +8,6 @@
 #include "../algorithmsPCH.hpp"
 #include "SortSubRange.hpp"
 
-
 namespace algofun {
     void AlgoFun_Test();
     void minabsent_Tests();
