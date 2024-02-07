@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 3.21)
 project(Algorithms)
 
 add_compile_options(
-  -O1 -g #[[ -S ]] 
+  -O1 -g -flto #[[ -S ]] 
   #[[ -fsanitize=address ]] #[[ -fsanitize=memory ]]
   #[[ -fno-omit-frame-pointer ]]
 )
 add_link_options(
-  -g #[[ -S ]]
+  -g -flto #[[ -S ]]
   #[[ -fsanitize=address ]]
 )
 
@@ -43,4 +43,7 @@ target_include_directories(algoFunLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 target_link_libraries(algoFunLib PRIVATE algorithmsPCH)
 
 add_executable(AlgoFun src/algorithms_Test.cpp)
+# to generate assembly while compiling & linking 
+# target_compile_options(AlgoFun PRIVATE -save-temps=obj)
+
 target_link_libraries(AlgoFun PRIVATE project_options algoFunLib)

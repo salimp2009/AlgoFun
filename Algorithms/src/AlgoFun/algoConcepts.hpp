@@ -6,11 +6,13 @@
 #define ALGOFUN_ALGOCONCEPTS_HPP
 
 #include "../algorithmsPCH.hpp"
+#include <coroutine>
+
 namespace algofun::details {
     template<typename T>
     concept unsignedType = std::is_unsigned_v<T>;
 
-
+    std::coroutine_handle<>;
     template<class Op, class T, class I, class RawResult,
              class DecayedResult = std::remove_cvref_t<RawResult>>
     concept indirectlyLeftFoldable_impl =
